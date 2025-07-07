@@ -15,32 +15,33 @@ namespace ProjectAngularApi.Repositories
 
         public void Add(Option entity)
         {
-            throw new NotImplementedException();
+            context.Options.Add(entity);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Option obj = GetById(id);
+            context.Options.Remove(obj);
         }
 
         public List<Option> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Options.ToList();
         }
 
         public Option GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Options.Find(id);
         }
 
         public void save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void Update(Option entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }
