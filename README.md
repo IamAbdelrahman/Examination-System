@@ -1,31 +1,51 @@
-# 📝 Exam System - Full Stack Project (Angular + ASP.NET Core)
+# =========================
+# Visual Studio / .NET Core
+# =========================
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
 
-## 🚀 Project Overview
-A complete exam system for students and admins. Students can register, take exams, and view results. Admins can create and manage exams and questions, and view students' results.
+# NuGet packages
+**/packages/
+*.nupkg
 
-## 🛠️ Tech Stack
-- Angular (Frontend)
-- ASP.NET Core Web API (Backend)
-- SQL Server (Database)
-- JWT (Authentication)
-- Entity Framework Core (ORM)
+# Build results
+*.dll
+*.exe
+*.pdb
 
-## 🔐 Features
+# ASP.NET specific
+**/Properties/PublishProfiles/
 
-### Student
-- Register and log in
-- View available exams
-- Take exams
-- View results
+# =========================
+# Angular
+# =========================
+**/node_modules/
+**/dist/
+**/.angular/cache/
 
-### Admin
-- Log in
-- Create/update/delete exams
-- Manage exam questions
-- View student results
+# Local environment files
+**/src/environments/*.ts
+!**/src/environments/environment.prod.ts
 
-## 👥 Team Members
-- Omar Dawood 
-- Abdelrahman Kamal
-- Sara Khalid
+# =========================
+# OS generated files
+# =========================
+.DS_Store
+Thumbs.db
 
+# =========================
+# Logs and other runtime files
+# =========================
+*.log
+
+# =========================
+# Others
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+*.iml
