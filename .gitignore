@@ -1,0 +1,18 @@
+# Ignore Visual Studio files
+**/.vs/
+**/bin/
+**/obj/
+
+# Ignore Angular files
+**/node_modules/
+**/dist/
+
+# Ignore environment files
+**/environment.ts
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
