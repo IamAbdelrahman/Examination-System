@@ -1,6 +1,9 @@
+using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectAngularApi.Service.DB;
 
 namespace ProjectAngularApi
 {
@@ -15,7 +18,15 @@ namespace ProjectAngularApi
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddDbContext<AngularContext>(optionsBuilder =>
+            {
+                optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
+            });
+
+
             var app = builder.Build();
+          
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -30,6 +41,7 @@ namespace ProjectAngularApi
             app.UseAuthorization();
             app.MapControllers();
             app.Run();
+
         }
     }
 }

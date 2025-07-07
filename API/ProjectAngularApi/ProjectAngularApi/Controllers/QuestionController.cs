@@ -5,14 +5,7 @@ namespace ProjectAngularApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class testController : ControllerBase
+    public class QuestionController : ControllerBase
     {
-        [HttpGet]
-        public string getwelcome() 
-        {
-
-            return "Welcome";
-        }
-            
     }
 }
