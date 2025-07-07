@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "ProjectAngularApi",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/test": {
+      "get": {
+        "tags": [
+          "test"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}
