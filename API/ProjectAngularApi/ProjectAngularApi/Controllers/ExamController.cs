@@ -90,13 +90,32 @@ namespace ProjectAngularApi.Controllers
                 examRepo.Add(exam);
                 examRepo.save();
 
-                return CreatedAtAction(nameof(GetById), new { id = exam.Id }, exam);
+                var responseDto = new ExamResponseDto
+                {
+                    Id = exam.Id,
+                    Title = exam.Title,
+                    Description = exam.Description,
+                    Questions = exam.Questions.Select(q => new QuestionResponseDto
+                    {
+                        Id = q.Id,
+                        Text = q.Text,
+                        Options = q.Options.Select(o => new OptionResponseDto
+                        {
+                            Id = o.Id,
+                            Text = o.Text,
+                            IsCorrect = o.IsCorrect
+                        }).ToList()
+                    }).ToList()
+                };
+
+                return CreatedAtAction(nameof(GetById), new { id = exam.Id }, responseDto);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "An error occurred while creating the exam.");
             }
         }
+
 
         [HttpPut("{id}")]
         public IActionResult UpdateExam(int id, [FromBody] CreateExamDto examDto)
@@ -167,23 +186,43 @@ namespace ProjectAngularApi.Controllers
                 return StatusCode(500, "An error occurred while deleting the exam.");
             }
         }
-
-        [HttpGet("{id}/questions")]
-        public IActionResult GetExamQuestions(int id)
+        [HttpGet("details/{id}")]
+        public IActionResult GetByIdDetails(int id)
         {
             try
             {
-                var exam = examRepo.GetById(id);
+                var exam = examRepo.GetByIdWithDetails(id); 
                 if (exam == null)
                     return NotFound($"Exam with ID {id} not found.");
 
-                return Ok(exam.Questions);
+                var responseDto = new ExamResponseDto
+                {
+                    Id = exam.Id,
+                    Title = exam.Title,
+                    Description = exam.Description,
+                    Questions = exam.Questions?.Select(q => new QuestionResponseDto
+                    {
+                        Id = q.Id,
+                        Text = q.Text,
+                        Options = q.Options?.Select(o => new OptionResponseDto
+                        {
+                            Id = o.Id,
+                            Text = o.Text,
+                            IsCorrect = o.IsCorrect
+                        }).ToList() ?? new List<OptionResponseDto>()
+                    }).ToList() ?? new List<QuestionResponseDto>()
+                };
+
+                return Ok(responseDto);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while retrieving exam questions.");
+                return StatusCode(500, "An error occurred while retrieving the exam.");
             }
         }
+
+
+
 
         [HttpGet("search")]
         public IActionResult SearchExams([FromQuery] string title)

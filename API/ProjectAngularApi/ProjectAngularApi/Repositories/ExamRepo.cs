@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using ProjectAngularApi.Models;
 using ProjectAngularApi.Repositories.IRepositories;
 using ProjectAngularApi.Service.DB;
@@ -20,6 +21,7 @@ namespace ProjectAngularApi.Repositories
             
         }
 
+
         public void Delete(int id)
         {
             Exam obj = GetById(id);
@@ -34,6 +36,13 @@ namespace ProjectAngularApi.Repositories
         public Exam GetById(int id)
         {
             return context.Exams.Find(id);
+        }
+        public Exam GetByIdWithDetails(int id)
+        {
+            return context.Exams
+                .Include(e => e.Questions)
+                .ThenInclude(q => q.Options)
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public void save()
