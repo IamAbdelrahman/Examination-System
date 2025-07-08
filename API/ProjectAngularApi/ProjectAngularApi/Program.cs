@@ -23,6 +23,7 @@ namespace ProjectAngularApi
                 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
 
+            builder.Services.AddAuth
 
             var app = builder.Build();
           
