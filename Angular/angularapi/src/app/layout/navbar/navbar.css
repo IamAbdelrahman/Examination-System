@@ -1,0 +1,280 @@
+/* Minimalist Professional Navbar Styling */
+.custom-navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    padding: 1.2rem 0;
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.custom-navbar.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Brand Styling */
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #d35400 !important;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #d35400 0%, #f39c12 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-brand:hover {
+    color: #f39c12 !important;
+    transform: translateX(2px);
+}
+
+.navbar-brand::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: linear-gradient(45deg, #d35400, #f39c12); /* Orange gradient */
+        border-radius: 50%;
+        top: 0;
+        right: -12px;
+        transition: all 0.3s ease;
+}
+
+.navbar-brand:hover::after {
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(211, 84, 0, 0.4);
+}
+
+/* Navigation Items */
+.navbar-nav {
+    gap: 0.25rem;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: #b97745 !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    font-family: 'Inter', -apple-system, sans-serif;
+    border: 2px solid transparent;
+}
+
+.nav-link:hover {
+    color: #d35400 !important;
+    background: #fdf6f0;
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+    color: #d35400 !important;
+    text-align: center;
+    justify-content: center;
+    background: white;
+    box-shadow: 0 4px 12px rgba(211, 84, 0, 0.15);
+}
+
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #d35400;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(211, 84, 0, 0.6);
+}
+
+/* Icons */
+
+
+.nav-link:hover i {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.nav-link.active i {
+    opacity: 1;
+    color: #fff;
+}
+
+/* Toggler Button */
+.navbar-toggler {
+    border: 2px solid #f6c7a2;
+    padding: 0.6rem;
+    background: transparent;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
+    border-color: #d35400;
+}
+
+.navbar-toggler:hover {
+    background: #fdf6f0;
+    border-color: #f6c7a2;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28211, 84, 0, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* Container */
+.container {
+    position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: #ffffff;
+        margin-top: 1rem;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f6c7a2;
+    }
+
+    .nav-link {
+        color: #b97745 !important;
+        margin: 0.3rem 0;
+        padding: 1rem 1.5rem !important;
+        border-radius: 12px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: #fff !important;
+        background: linear-gradient(135deg, #d35400 0%, #f39c12 100%);
+        border-color: #d35400;
+    }
+
+    .navbar-brand {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-navbar {
+        padding: 1rem 0;
+    }
+    
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.2rem !important;
+    }
+}
+
+/* Animation for mobile menu */
+.navbar-collapse.collapsing {
+    transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-collapse.show {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subtle hover effects */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #d35400, #f39c12);
+    border-radius: 1px;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 80%;
+}
+
+.nav-item.active::after {
+    width: 100%;
+}
+
+/* Loading animation for nav items */
+.nav-item {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.nav-item:nth-child(1) { animation-delay: 0.1s; }
+.nav-item:nth-child(2) { animation-delay: 0.2s; }
+.nav-item:nth-child(3) { animation-delay: 0.3s; }
+.nav-item:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus states for accessibility */
+.nav-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
+}
+
+/* Professional subtle effects */
+.custom-navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f6c7a2, transparent);
+}
+
+/* Typography enhancement */
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}

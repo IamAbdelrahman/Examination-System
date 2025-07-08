@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using ProjectAngularApi.Models;
 using ProjectAngularApi.Repositories.IRepositories;
 using ProjectAngularApi.Service.DB;
@@ -16,32 +17,42 @@ namespace ProjectAngularApi.Repositories
 
         public void Add(Exam entity)
         {
-            throw new NotImplementedException();
+            context.Exams.Add(entity);  
+            
         }
+
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Exam obj = GetById(id);
+            context.Exams.Remove(obj);
         }
 
         public List<Exam> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Exams.ToList();  
         }
 
         public Exam GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Exams.Find(id);
+        }
+        public Exam GetByIdWithDetails(int id)
+        {
+            return context.Exams
+                .Include(e => e.Questions)
+                .ThenInclude(q => q.Options)
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public void save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void Update(Exam entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State=Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }

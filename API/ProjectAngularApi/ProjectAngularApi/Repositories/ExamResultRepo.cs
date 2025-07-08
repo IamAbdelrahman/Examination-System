@@ -16,32 +16,33 @@ namespace ProjectAngularApi.Repositories
 
         public void Add(ExamResult entity)
         {
-            throw new NotImplementedException();
+            context.ExamResults.Add(entity);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            ExamResult obj = GetById(id);
+            context.ExamResults.Remove(obj); 
         }
 
         public List<ExamResult> GetAll()
         {
-            throw new NotImplementedException();
+            return context.ExamResults.ToList();
         }
 
         public ExamResult GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.ExamResults.Find(id);
         }
 
         public void save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void Update(ExamResult entity)
         {
-            throw new NotImplementedException();
+            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectAngularApi.Repositories.IRepositories;
+using ProjectAngularApi.Repositories;
 using ProjectAngularApi.Service.DB;
 
 namespace ProjectAngularApi
@@ -47,6 +49,13 @@ namespace ProjectAngularApi
             {
                 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
+            builder.Services.AddScoped<IExamRepo, ExamRepo>();
+            builder.Services.AddScoped<IExamResultRepo,ExamResultRepo >();
+            builder.Services.AddScoped<IOptionRepo, OptionRepo>();
+            builder.Services.AddScoped<IQuestionRepo, QuestionRepo>();
+
+
+
 
             builder.Services.AddAuthorization();
             builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
