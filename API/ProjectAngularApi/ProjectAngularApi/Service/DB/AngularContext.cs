@@ -12,7 +12,6 @@ namespace ProjectAngularApi.Service.DB
         public DbSet<Question> Questions { get; set; }
         public DbSet<ExamResult> ExamResults { get; set; }
         public DbSet<Option> Options { get; set; }
-
         public AngularContext() : base() { }
 
         public AngularContext(DbContextOptions<AngularContext> options) : base(options) { }
