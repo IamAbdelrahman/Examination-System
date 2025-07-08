@@ -28,7 +28,7 @@ namespace ProjectAngularApi
                     Version = "v1",
                     Description = "API for Project Angular"
                 });
-
+                options.CustomSchemaIds(type => type.FullName);
                 options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
                     In = Microsoft.OpenApi.Models.ParameterLocation.Header,
