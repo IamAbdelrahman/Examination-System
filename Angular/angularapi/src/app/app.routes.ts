@@ -11,6 +11,9 @@ export const routes: Routes = [
   // { path: 'exams', loadChildren: () => import('./exams/exams.module').then(m => m.ExamsModule) },
   // { path: 'results', loadChildren: () => import('./results/student-results').then(m => m.ResultsModule) },
 
+  // { path: 'exams', loadChildren: () => import('./exams/exams.module').then(m => m.ExamsModule) },
+  // { path: 'results', loadChildren: () => import('./results/student-results').then(m => m.ResultsModule) },
+
   //{ path: 'exams', loadChildren: () => import('./exams/exams.module').then(m => m.ExamsModule) },
   //{ path: 'results', loadChildren: () => import('./results/student-results').then(m => m.ResultsModule) },
 
