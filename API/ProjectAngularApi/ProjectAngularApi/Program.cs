@@ -32,6 +32,7 @@ namespace ProjectAngularApi
 
 
 
+            builder.Services.AddAuth
 
             var app = builder.Build();
           
