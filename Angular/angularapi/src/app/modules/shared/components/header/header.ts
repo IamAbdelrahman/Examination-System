@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-header',
   imports: [RouterModule, RouterLink,CommonModule],
-  templateUrl: './navbar.html',
-  styleUrls: ['./navbar.css']
+  templateUrl: './header.html',
+  styleUrl: './header.css'
 })
-export class Navbar {
+export class Header {
     get studentNavItems() {
     return [
       { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
@@ -16,7 +16,7 @@ export class Navbar {
       { label: 'Results', route: '/results', icon: 'assessment' },
       { label: 'Profile', route: '/profile', icon: 'person' }
     ];
-  }
+}
 
   get adminNavItems() {
     return [
