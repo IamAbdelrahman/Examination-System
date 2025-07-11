@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { Login } from './auth/login/login';
-import { Register } from './auth/register/register';
-import { NotFound } from './layout/not-found/not-found';
+import { Login } from './modules/auth/login/login';
+import { Register } from './modules/auth/register/register';
+import { NotFound } from './modules/shared/components/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'exams', pathMatch: 'full' },
