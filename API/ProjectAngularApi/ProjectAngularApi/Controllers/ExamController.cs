@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAngularApi.Dtos;
 using ProjectAngularApi.Models;
+using ProjectAngularApi.Models.DTOs.Exam;
+using ProjectAngularApi.Models.Entities;
 using ProjectAngularApi.Repositories.IRepositories;
 
 namespace ProjectAngularApi.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ExamController : ControllerBase
@@ -16,8 +19,9 @@ namespace ProjectAngularApi.Controllers
         {
             this.examRepo = examRepo;
         }
-
+        [Authorize]
         [HttpGet]
+
         public IActionResult GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
@@ -186,6 +190,7 @@ namespace ProjectAngularApi.Controllers
                 return StatusCode(500, "An error occurred while deleting the exam.");
             }
         }
+
         [HttpGet("details/{id}")]
         public IActionResult GetByIdDetails(int id)
         {

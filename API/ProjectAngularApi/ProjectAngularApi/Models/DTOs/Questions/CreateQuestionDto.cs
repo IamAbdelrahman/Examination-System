@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProjectAngularApi.Models.DTOs.Options;
+using System.ComponentModel.DataAnnotations;
 
-namespace ProjectAngularApi.Dtos
+namespace ProjectAngularApi.Models.DTOs.Questions
 {
     public class CreateQuestionDto
     {
