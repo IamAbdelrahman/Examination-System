@@ -20,11 +20,11 @@ namespace ProjectAngularApi.Service
         private readonly JWT _jwt;
 
         public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
-            IOptions<JWT> jwt)
+            JWT jwt)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _jwt = jwt.Value;
+            _jwt = jwt;
         }
 
         public async Task<AuthModel> RegisterAsync(RegisterDto registerModel)

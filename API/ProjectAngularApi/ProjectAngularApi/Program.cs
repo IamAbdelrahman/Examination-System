@@ -27,7 +27,7 @@ namespace ProjectAngularApi
 
             // Add services to the container.
             builder.Services.AddControllers();
-            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -56,7 +56,9 @@ namespace ProjectAngularApi
 
             });
 
-            builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+            //builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+            var jwtOptions = builder.Configuration.GetSection("JWT").Get<JWT>();
+            builder.Services.AddSingleton(jwtOptions);
 
             builder.Services.AddAuthentication(options =>
             {
@@ -65,15 +67,16 @@ namespace ProjectAngularApi
             })
             .AddJwtBearer(o =>
             {
-                var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]);
+                //var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]);
+                var key = Encoding.UTF8.GetBytes(jwtOptions.SigningKey);
                 o.RequireHttpsMetadata = false;
-                o.SaveToken = false;
+                o.SaveToken = true;
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidIssuer = jwtOptions.Issuer, // builder.Configuration["JWT:Issuer"],
                     ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:Audience"],
+                    ValidAudience = jwtOptions.Audience, //builder.Configuration["JWT:Audience"],
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
