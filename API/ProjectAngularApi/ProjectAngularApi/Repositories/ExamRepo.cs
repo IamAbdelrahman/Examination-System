@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using ProjectAngularApi.Models;
+using ProjectAngularApi.Models.Entities;
 using ProjectAngularApi.Repositories.IRepositories;
 using ProjectAngularApi.Service.DB;
 

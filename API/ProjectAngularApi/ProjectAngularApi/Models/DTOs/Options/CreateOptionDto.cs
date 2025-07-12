@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjectAngularApi.Dtos
+namespace ProjectAngularApi.Models.DTOs.Options
 {
     public class CreateOptionDto
     {

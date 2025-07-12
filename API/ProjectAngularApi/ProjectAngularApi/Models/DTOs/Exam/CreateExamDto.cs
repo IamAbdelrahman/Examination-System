@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProjectAngularApi.Models.DTOs.Questions;
+using System.ComponentModel.DataAnnotations;
 
-namespace ProjectAngularApi.Dtos
+namespace ProjectAngularApi.Models.DTOs.Exam
 {
     public class CreateExamDto
     {

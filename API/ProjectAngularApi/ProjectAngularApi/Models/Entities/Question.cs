@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectAngularApi.Models
+namespace ProjectAngularApi.Models.Entities
 {
     public class Question
     {

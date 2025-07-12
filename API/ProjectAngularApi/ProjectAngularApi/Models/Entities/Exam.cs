@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjectAngularApi.Models
+namespace ProjectAngularApi.Models.Entities
 {
     public class Exam
     {

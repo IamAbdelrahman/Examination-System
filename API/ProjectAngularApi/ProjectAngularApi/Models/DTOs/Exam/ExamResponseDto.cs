@@ -1,4 +1,4 @@
-﻿namespace ProjectAngularApi.Dtos
+﻿namespace ProjectAngularApi.Models.DTOs.Exam
 {
     public class ExamResponseDto
     {

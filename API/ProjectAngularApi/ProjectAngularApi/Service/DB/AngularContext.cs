@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjectAngularApi.Models;
+using ProjectAngularApi.Models.Entities;
 
 namespace ProjectAngularApi.Service.DB
 {

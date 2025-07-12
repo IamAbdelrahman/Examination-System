@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using ProjectAngularApi.Service.DB;
 
-namespace ProjectAngularApi.Models
+namespace ProjectAngularApi.Models.Entities
 {
     public class ExamResult
     {
