@@ -1,0 +1,85 @@
+<!-- Floating shapes background -->
+<div class="floating-shapes">
+  <div class="shape" style="--rotate: 25deg;"></div>
+  <div class="shape" style="--rotate: -30deg;"></div>
+  <div class="shape" style="--rotate: 45deg;"></div>
+  <div class="small-shapes">
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+  </div>
+</div>
+
+<div class="exam-container">
+  <!-- Header with back button -->
+  <div class="header-section">
+    <button class="back-button" routerLink="/exam">
+      ← Back to Exams
+    </button>
+    <h2 class="exam-title">Exam Details</h2>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading exam details...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-message">
+      {{ error() }}
+    </div>
+  } @else if (exam()) {
+    <!-- Exam header information -->
+    <div class="exam-header-card">
+      <h3 class="exam-header-title">{{ exam()?.title }}</h3>
+      <p class="exam-header-description">{{ exam()?.description }}</p>
+      <div class="exam-stats">
+        <span class="stat-badge">
+          📋 {{ exam()?.questions?.length || 0 }} Questions
+        </span>
+      </div>
+    </div>
+
+    <!-- Questions container -->
+    <div class="questions-container">
+      @for (question of exam()?.questions; track question.id; let i = $index) {
+        <div class="question-card">
+          <div class="question-header">
+            <h4 class="question-title">Question {{ i + 1 }}</h4>
+            <span class="question-number">#{{ i + 1 }}</span>
+          </div>
+          
+          <div class="question-text">
+            {{ question.text }}
+          </div>
+
+          <div class="options-container">
+            <h5 class="options-title">Answer Options:</h5>
+            <div class="options-list">
+              @for (option of question.options; track option.id; let j = $index) {
+                <div class="option-item" [class.correct-option]="option.isCorrect">
+                  <div class="option-content">
+                    <span class="option-letter">{{ getOptionLetter(j) }}</span>
+                    <span class="option-text">{{ option.text }}</span>
+                  </div>
+                  @if (option.isCorrect) {
+                    <div class="correct-badge">
+                      <span class="correct-icon">✓</span>
+                      <span class="correct-text">Correct Answer</span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-message">
+          <div class="empty-icon">❓</div>
+          <p>No questions available for this exam</p>
+          <p>Questions will appear here once they are added to the exam</p>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -11,7 +11,7 @@ import { AllExamsComponent } from "./Components/admin/Exam/all-exams/all-exams";
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [RouterModule, Header, AllExamsComponent, NotFound], 
+  imports: [RouterModule, Header], 
 })
 export class App {
   protected title = 'angularapi';

@@ -2,6 +2,8 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { ExamService } from '../../../../core/services/exam-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 interface Exam {
   id: number;
@@ -18,6 +20,8 @@ interface Exam {
 })
 export class AllExamsComponent implements OnInit {
   private examService = inject(ExamService);
+  private router = inject(Router);
+
 
   exams = signal<Exam[]>([]);
   currentPage = signal(1);
@@ -127,6 +131,6 @@ export class AllExamsComponent implements OnInit {
   viewDetails(examId: number) {
     // TODO: Navigate to exam details page
     console.log('Navigate to exam details page for ID:', examId);
-    // Example: this.router.navigate(['/exams', examId]);
+  this.router.navigate(['/exam/details', examId]);
   }
 }
