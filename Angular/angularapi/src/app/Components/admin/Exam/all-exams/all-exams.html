@@ -1,0 +1,102 @@
+<div class="floating-shapes">
+  <div class="shape" style="--rotate: 25deg;"></div>
+  <div class="shape" style="--rotate: -30deg;"></div>
+  <div class="shape" style="--rotate: 45deg;"></div>
+  <div class="small-shapes">
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+  </div>
+</div>
+
+<div class="exam-container">
+  <div class="header-section">
+    <h2 class="exam-title">Exam List</h2>
+    <button class="add-exam-button" (click)="addExam()">
+      + Add Exam
+    </button>
+  </div>
+  
+  <!-- Search Input -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      placeholder="Search by title..." 
+      [value]="searchInput"
+      (input)="handleInput($event)"
+      class="search-input"
+    />
+    <button class="search-button" (click)="search()">Search</button>
+    <button class="clear-button" (click)="clearSearch()" *ngIf="searchTerm()">Clear</button>
+  </div>
+  
+  <div class="pagination-controls">
+    <button class="page-button" (click)="previousPage()" [disabled]="currentPage() === 1">Previous</button>
+    <span class="page-info">Page {{ currentPage() }}</span>
+    <button class="page-button" (click)="nextPage()" [disabled]="exams().length < pageSize">Next</button>
+    <select class="page-select" [(ngModel)]="pageSize" (change)="loadExams()">
+      <option value="5">5 per page</option>
+      <option value="10">10 per page</option>
+      <option value="20">20 per page</option>
+    </select>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading exams...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-message">
+      {{ error() }}
+    </div>
+  } @else {
+    <div class="exam-list">
+      @for (exam of exams(); track exam.id) {
+        <div class="exam-card">
+          <div class="exam-card-content">
+            <h3 class="exam-card-title">{{ exam.title }}</h3>
+            <p class="exam-card-description">{{ exam.description }}</p>
+          </div>
+          <div class="exam-card-actions">
+            <button class="details-button" (click)="viewDetails(exam.id)">
+              View Details
+            </button>
+            <button class="delete-button" (click)="deleteExam(exam.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-message">
+          <div class="empty-icon">📋</div>
+          <p>No exams found</p>
+          <p>Try adjusting your search or create a new exam</p>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Delete Confirmation Modal -->
+@if (showDeleteModal()) {
+  <div class="delete-modal-overlay" (click)="cancelDelete()">
+    <div class="delete-modal" (click)="$event.stopPropagation()">
+      <div class="delete-modal-header">
+        <div class="delete-modal-icon">⚠</div>
+        <h3 class="delete-modal-title">Delete Exam</h3>
+      </div>
+      <p class="delete-modal-message">
+        Are you sure you want to delete "{{ examToDelete()?.title }}"? This action cannot be undone.
+      </p>
+      <div class="delete-modal-actions">
+        <button class="modal-button modal-button-cancel" (click)="cancelDelete()">
+          Cancel
+        </button>
+        <button class="modal-button modal-button-confirm" (click)="confirmDelete()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+}

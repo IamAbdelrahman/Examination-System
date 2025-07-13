@@ -3,7 +3,7 @@ import { Header } from "../header/header";
 
 @Component({
   selector: 'app-not-found',
-  imports: [Header],
+  imports: [],
   templateUrl: './not-found.html',    
   styleUrl: './not-found.css'
 })
