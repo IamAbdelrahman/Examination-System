@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { SharedModule } from '../../shared-module';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, RouterLink,CommonModule,SharedModule],
+  imports: [RouterModule, RouterLink,CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })

@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import { SharedModule } from '../../shared-module';
-import { Header } from '../header/header';
-import { Footer } from '../footer/footer';
-
 @Component({
   selector: 'app-not-found',
-  imports: [SharedModule,Header,Footer],
+  imports: [],
   templateUrl: './not-found.html',    
   styleUrl: './not-found.css'
 })

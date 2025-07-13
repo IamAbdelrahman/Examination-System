@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
-import { SharedModule } from '../modules/shared/shared-module';
-import { Header } from '../modules/shared/components/header/header';
-import { Footer } from '../modules/shared/components/footer/footer';
+
+
 
 @Component({
   selector: 'app-home',
@@ -12,9 +11,6 @@ import { Footer } from '../modules/shared/components/footer/footer';
   styleUrls: ['./home.css'],
   imports: [
     CommonModule,
-    RouterOutlet,
-    SharedModule,
-    Header,Footer
   ]
 })
 export class Home implements OnInit, OnDestroy {

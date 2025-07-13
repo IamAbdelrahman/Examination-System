@@ -19,10 +19,11 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Login } from './modules/auth/login/login';
-import { Register } from './modules/auth/register/register';
-import { NotFound } from './modules/shared/components/not-found/not-found';
 import { Home } from './home/home';
+import { Component, OnInit } from '@angular/core';
+import { Login } from './Components/auth/login/login';
+import { Register } from './Components/auth/register/register';
+import { NotFound } from './Components/shared/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,7 +40,6 @@ export const routes: Routes = [
 export class AppRoutingModule { }
 
 // app.component.ts
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -48,7 +48,7 @@ import { Component, OnInit } from '@angular/core';
     <app-register></app-register> -->
   `,
   styleUrls: ['./app.css'],
-  imports: [Login]
+  imports: []
 })
 export class AppComponent implements OnInit {
   title = 'angular-app';
