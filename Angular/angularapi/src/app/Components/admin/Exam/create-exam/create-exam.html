@@ -1,0 +1,230 @@
+<div class="floating-shapes">
+  <div class="shape" style="--rotate: 25deg;"></div>
+  <div class="shape" style="--rotate: -30deg;"></div>
+  <div class="shape" style="--rotate: 45deg;"></div>
+  <div class="small-shapes">
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+  </div>
+</div>
+
+<div class="exam-container">
+  <div class="header-section">
+    <button class="back-button" routerLink="/exam">
+      ← Back to Exams
+    </button>
+    <h2 class="exam-title">Create New Exam</h2>
+  </div>
+
+  @if (success()) {
+    <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <div>
+        <strong>Success!</strong> Exam created successfully. Redirecting to exam details...
+      </div>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      <div>{{ error() }}</div>
+    </div>
+  }
+
+  <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+    <!-- Exam Basic Information -->
+    <div class="exam-header-card">
+      <h3 class="exam-header-title">Exam Information</h3>
+      
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label for="title" class="form-label">Exam Title <span class="text-danger">*</span></label>
+          <input 
+            id="title" 
+            type="text" 
+            formControlName="title" 
+            class="form-control"
+            [class.is-invalid]="examForm.get('title')?.invalid && (examForm.get('title')?.touched || submitted)"
+            placeholder="Enter exam title"
+          >
+          @if (examForm.get('title')?.invalid && (examForm.get('title')?.touched || submitted)) {
+            <div class="invalid-feedback">
+              @if (examForm.get('title')?.errors?.['required']) {
+                Title is required
+              }
+              @if (examForm.get('title')?.errors?.['minlength']) {
+                Title must be at least 3 characters
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-12 mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea 
+            id="description" 
+            formControlName="description" 
+            class="form-control"
+            rows="3"
+            placeholder="Enter exam description (optional)"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="questions-container" formArrayName="questions">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="exam-header-title mb-0">Questions</h3>
+        <div class="stat-badge">
+          📋 {{ questions.length }} Question{{ questions.length !== 1 ? 's' : '' }}
+        </div>
+      </div>
+
+      @for (question of questions.controls; track $index; let i = $index) {
+        <div class="question-card" [formGroupName]="i">
+          <div class="question-header">
+            <h4 class="question-title">Question {{ i + 1 }}</h4>
+            <div class="d-flex gap-2">
+              <span class="question-number">#{{ i + 1 }}</span>
+              <button 
+                type="button" 
+                (click)="removeQuestion(i)" 
+                class="btn btn-outline-danger btn-sm"
+                [disabled]="questions.length <= 1"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Question Text <span class="text-danger">*</span></label>
+            <textarea 
+              formControlName="text" 
+              class="form-control question-text-input"
+              rows="2"
+              placeholder="Enter question text"
+              [class.is-invalid]="question.get('text')?.invalid && (question.get('text')?.touched || submitted)"
+            ></textarea>
+            @if (question.get('text')?.invalid && (question.get('text')?.touched || submitted)) {
+              <div class="invalid-feedback">
+                @if (question.get('text')?.errors?.['required']) {
+                  Question text is required
+                }
+                @if (question.get('text')?.errors?.['minlength']) {
+                  Question must be at least 5 characters
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Options -->
+          <div class="options-container" formArrayName="options">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="options-title mb-0">Answer Options <span class="text-danger">*</span></h5>
+              <button 
+                type="button" 
+                (click)="addOption(i)" 
+                class="btn btn-primary btn-sm"
+              >
+                <i class=""></i> Add Option
+              </button>
+            </div>
+
+            <div class="options-list">
+              @for (option of getQuestionOptions(i).controls; track $index; let j = $index) {
+                <div class="option-item" [formGroupName]="j" [class.correct-option]="option.get('isCorrect')?.value">
+                  <div class="option-content">
+                    <span class="option-letter">{{ getOptionLetter(j) }}</span>
+                    <div class="flex-grow-1">
+                      <input 
+                        type="text" 
+                        formControlName="text" 
+                        class="form-control option-text-input"
+                        placeholder="Enter option text"
+                        [class.is-invalid]="option.get('text')?.invalid && (option.get('text')?.touched || submitted)"
+                      >
+                      @if (option.get('text')?.invalid && (option.get('text')?.touched || submitted)) {
+                        <div class="invalid-feedback">
+                          Option text is required
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  
+                  <div class="option-actions">
+                    <div class="form-check">
+                      <input 
+                        type="radio" 
+                        class="form-check-input"
+                        [name]="'correctAnswer' + i" 
+                        [value]="j"
+                        [checked]="option.get('isCorrect')?.value"
+                        (change)="setCorrectAnswer(i, j)"
+                        id="correct_{{ i }}_{{ j }}"
+                      >
+                      <label class="form-check-label text-success fw-bold" for="correct_{{ i }}_{{ j }}">
+                        Correct
+                      </label>
+                    </div>
+                    
+                    <button 
+                      type="button" 
+                      (click)="removeOption(i, j)" 
+                      class="btn btn-outline-danger btn-sm ms-2"
+                      [disabled]="getQuestionOptions(i).length <= 2"
+                    >
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+
+                  @if (option.get('isCorrect')?.value) {
+                    <div class="correct-badge">
+                      <span class="correct-icon">✓</span>
+                      <span class="correct-text">Correct Answer</span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+
+            @if (isQuestionInvalid(i) && (questions.at(i).touched || submitted)) {
+              <div class="alert alert-danger mt-3">
+                @if (getQuestionOptions(i).length < 2) {
+                  <div>• Each question needs at least 2 options</div>
+                }
+                @if (getCorrectAnswerCount(i) !== 1) {
+                  <div>• Each question needs exactly 1 correct answer</div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="text-center mt-4">
+        <button type="button" (click)="addQuestion()" class="btn btn-success btn-lg">
+          <i class=""></i> Add Question
+        </button>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success btn-lg" [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          Creating...
+        } @else {
+          <i class="bi bi-check-circle me-2"></i>
+          Create Exam
+        }
+      </button>
+      <button type="button" (click)="cancel()" class="btn btn-outline-secondary btn-lg">
+        <i class="bi bi-x-circle me-2"></i>
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

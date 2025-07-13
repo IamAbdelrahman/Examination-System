@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NotFound } from '../app/Components/shared/not-found/not-found';
 import { Header } from '../app/Components/shared/header/header';
 import { AllExamsComponent } from "./Components/admin/Exam/all-exams/all-exams";
+import { CreateExam } from "./Components/admin/Exam/create-exam/create-exam";
 
 
 
