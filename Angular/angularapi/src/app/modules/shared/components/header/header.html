@@ -14,11 +14,12 @@
     
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let item of studentNavItems">
+        <li class="nav-item" *ngFor="let item of defaultNavItems">
           <a class="nav-link" 
              [routerLink]="item.route" 
-             routerLinkActive="active">
-            <i [class]="item.icon" *ngIf="item.icon"></i>
+             routerLinkActive="active"
+             >
+            <i [class]="item.icon" *ngIf="item.label"></i>
             {{ item.label }}
           </a>
         </li>

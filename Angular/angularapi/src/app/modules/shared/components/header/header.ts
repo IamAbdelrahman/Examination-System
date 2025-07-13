@@ -1,14 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { SharedModule } from '../../shared-module';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, RouterLink,CommonModule],
+  standalone: true,
+  imports: [RouterModule, RouterLink,CommonModule,SharedModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
+
+
 export class Header {
+  constructor(private router: Router) {}
+
+  // navigateTo(label: string) {
+  //   this.router.navigate(['/' + label]);
+  // }
+      get defaultNavItems() {
+    return [
+      {label: 'Home', route: '/home', icon: 'home'},
+      {label: 'Login', route: '/login', icon: 'login'},
+      {label: 'Register', route: '/register', icon: 'person_add'},
+
+    ]}
     get studentNavItems() {
     return [
       { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },

@@ -1,6 +1,6 @@
-/* Minimalist Professional Navbar Styling */
+
 .custom-navbar {
-    background: #ffffff !important;
+  background: #222 !important;
     border-bottom: 1px solid #e9ecef;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     padding: 1.2rem 0;
@@ -8,6 +8,10 @@
     position: sticky;
     top: 0;
     z-index: 1030;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+    
+
 }
 
 .custom-navbar.scrolled {
@@ -164,13 +168,14 @@
         margin: 0.3rem 0;
         padding: 1rem 1.5rem !important;
         border-radius: 12px;
+        justify-content: center;
     }
 
     .nav-link:hover,
     .nav-link.active {
-        color: #fff !important;
-        background: linear-gradient(135deg, #d35400 0%, #f39c12 100%);
-        border-color: #d35400;
+        color: #d35400 !important;
+        justify-content: center;
+
     }
 
     .navbar-brand {

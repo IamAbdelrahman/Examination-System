@@ -1,1 +1,147 @@
-<p>register works!</p>
+  <div class="app-container">
+
+
+  <div class="register-card">
+    <div class="card-header">
+      <h2 class="title">Join Our Community!</h2>
+      <p class="subtitle">Create your account and get started</p>
+    </div>
+    
+    <!-- <form [formGroup]="registerForm" (ngSubmit)="onSubmit()"  -->
+        <form  (ngSubmit)="onSubmit()" 
+    class="register-form">
+      <!-- Name Fields -->
+      <div class="name-row">
+        <div class="form-group half-width">
+          <div class="input-container">
+            <input 
+              type="text" 
+              id="fullName" 
+              formControlName="fullName"
+              class="form-input"
+              placeholder=" "
+              [class.error]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+            >
+            <label for="fullName" class="form-label">Full Name</label>
+            <div class="input-highlight"></div>
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+            <span *ngIf="registerForm.get('fullName')?.errors?.['required']">First name is required</span>
+            <span *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Must be at least 2 characters</span>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Email Field -->
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            class="form-input"
+            placeholder=" "
+            [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          >
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-highlight"></div>
+        </div>
+        <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+      
+      <!-- Password Field -->
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="password" 
+            formControlName="password"
+            class="form-input"
+            placeholder=" "
+            [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          >
+          <label for="password" class="form-label">Password</label>
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="togglePassword()"
+          >
+            {{ showPassword ? '👁️' : '🙈' }}
+          </button>
+          <div class="input-highlight"></div>
+        </div>
+        
+        <!-- Password Strength Indicator -->
+        <div class="password-strength" *ngIf="registerForm.get('password')?.value">
+          <div class="strength-bar">
+            <div class="strength-fill" [style.width.%]="passwordStrength" [class]="passwordStrengthText.toLowerCase()"></div>
+          </div>
+          <span class="strength-text" [class]="passwordStrengthText.toLowerCase()">{{ passwordStrengthText }}</span>
+        </div>
+        
+        <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+        </div>
+      </div>
+      
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <div class="input-container">
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            class="form-input"
+            placeholder=" "
+            [class.error]="(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) || registerForm.errors?.['passwordMismatch']"
+          >
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="toggleConfirmPassword()"
+          >
+            {{ showConfirmPassword ? '👁️' : '🙈' }}
+          </button>
+          <div class="input-highlight"></div>
+        </div>
+        <div class="error-message" *ngIf="(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) || registerForm.errors?.['passwordMismatch']">
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+          <span *ngIf="registerForm.errors?.['passwordMismatch']">Passwords do not match</span>
+        </div>
+      </div>
+      
+      <!-- Terms Agreement -->
+      <div class="form-group">
+        <label class="terms-agreement">
+          <input type="checkbox" formControlName="agreeToTerms">
+          <span class="checkmark"></span>
+          I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+        </label>
+        <div class="error-message" *ngIf="registerForm.get('agreeToTerms')?.invalid && registerForm.get('agreeToTerms')?.touched">
+          <span>You must agree to the terms to continue</span>
+        </div>
+      </div>
+      
+      <button 
+        type="submit" 
+        class="register-button"
+        [disabled]="registerForm.invalid"
+        [class.loading]="isLoading"
+      >
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading" class="loading-spinner">🚀</span>
+      </button>
+    </form>
+    
+    
+    <p class="signin-link">
+      Already have an account? <a href="#">Sign in here</a>
+    </p>
+  </div>
+  </div>

@@ -3,6 +3,17 @@
             padding: 0;
             box-sizing: border-box;
         }
+        .app-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: 20px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+        }
 
         body {
             font-family: 'Arial', sans-serif;
@@ -17,10 +28,9 @@
 
         .container {
             text-align: center;
-            background: white;
             padding: 60px 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.447);
             max-width: 500px;
             width: 90%;
             position: relative;
@@ -30,13 +40,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
             position: absolute; /* Center absolutely within parent */
-        }
+            background-color: #d35400;        }
         
 
         .character-container {
             position: relative;
             margin-bottom: 40px;
             display: inline-block;
+
         }
 
         .document {
@@ -130,29 +141,32 @@
         .glass-handle {
             position: absolute;
             bottom: -20px;
-            right: -3px;
+            top: 35px;
+            left: 15px;
             width: 4px;
             height: 20px;
             background: #666;
             border-radius: 2px;
+
         }
 
         .title {
             font-size: 2.5rem;
-            color: #333;
+            color: #000000;
             margin-bottom: 15px;
             font-weight: 600;
         }
 
         .subtitle {
             font-size: 1.2rem;
-            color: #666;
+            color: #fffefe;
             margin-bottom: 40px;
             line-height: 1.5;
         }
 
-        .retry-button {
+        .response-button {
             background: #e67e22;
+            margin: 20px;
             color: white;
             border: none;
             padding: 15px 40px;
@@ -164,13 +178,14 @@
             box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
         }
 
-        .retry-button:hover {
-            background: #d35400;
+        .response-button:hover {
+            background: #ffffff;
+            color: black;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
         }
 
-        .retry-button:active {
+        .response-button:active {
             transform: translateY(0);
         }
 
