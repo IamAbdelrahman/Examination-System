@@ -12,8 +12,8 @@ using ProjectAngularApi.Service.DB;
 namespace ProjectAngularApi.Migrations
 {
     [DbContext(typeof(AngularContext))]
-    [Migration("20250711130028_appUser")]
-    partial class appUser
+    [Migration("20250713201019_ms")]
+    partial class ms
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace ProjectAngularApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.ApplicationUser", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -228,7 +228,7 @@ namespace ProjectAngularApi.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Exam", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Exam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +251,7 @@ namespace ProjectAngularApi.Migrations
                     b.ToTable("Exams");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.ExamResult", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.ExamResult", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +281,7 @@ namespace ProjectAngularApi.Migrations
                     b.ToTable("ExamResults");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Option", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Option", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -306,7 +306,7 @@ namespace ProjectAngularApi.Migrations
                     b.ToTable("Options");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Question", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -339,7 +339,7 @@ namespace ProjectAngularApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.ApplicationUser", null)
+                    b.HasOne("ProjectAngularApi.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,7 +348,7 @@ namespace ProjectAngularApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.ApplicationUser", null)
+                    b.HasOne("ProjectAngularApi.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,7 +363,7 @@ namespace ProjectAngularApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectAngularApi.Models.ApplicationUser", null)
+                    b.HasOne("ProjectAngularApi.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -372,22 +372,22 @@ namespace ProjectAngularApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.ApplicationUser", null)
+                    b.HasOne("ProjectAngularApi.Models.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.ExamResult", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.ExamResult", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.Exam", "Exam")
+                    b.HasOne("ProjectAngularApi.Models.Entities.Exam", "Exam")
                         .WithMany()
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectAngularApi.Models.ApplicationUser", "Student")
+                    b.HasOne("ProjectAngularApi.Models.Entities.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -398,9 +398,9 @@ namespace ProjectAngularApi.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Option", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Option", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.Question", "Question")
+                    b.HasOne("ProjectAngularApi.Models.Entities.Question", "Question")
                         .WithMany("Options")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,9 +409,9 @@ namespace ProjectAngularApi.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Question", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Question", b =>
                 {
-                    b.HasOne("ProjectAngularApi.Models.Exam", "Exam")
+                    b.HasOne("ProjectAngularApi.Models.Entities.Exam", "Exam")
                         .WithMany("Questions")
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -420,12 +420,12 @@ namespace ProjectAngularApi.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Exam", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Exam", b =>
                 {
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("ProjectAngularApi.Models.Question", b =>
+            modelBuilder.Entity("ProjectAngularApi.Models.Entities.Question", b =>
                 {
                     b.Navigation("Options");
                 });

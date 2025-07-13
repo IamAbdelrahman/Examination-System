@@ -12,7 +12,7 @@ using ProjectAngularApi.Service.DB;
 namespace ProjectAngularApi.Migrations
 {
     [DbContext(typeof(AngularContext))]
-    [Migration("20250712052305_SeedRols")]
+    [Migration("20250713201056_SeedRoles")]
     partial class SeedRoles
     {
         /// <inheritdoc />
