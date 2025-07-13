@@ -19,7 +19,10 @@ namespace ProjectAngularApi.Controllers
         {
             this.examRepo = examRepo;
         }
+
         [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
+
+
         [HttpGet]
 
         public IActionResult GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
