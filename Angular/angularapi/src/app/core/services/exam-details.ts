@@ -26,7 +26,7 @@ export interface ExamResponseDto {
 })
 export class ExamDetailsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5125/api/exam';
+  private apiUrl = 'https://localhost:44301/api/exam';
 
   getExamDetails(id: number): Observable<ExamResponseDto> {
     return this.http.get<ExamResponseDto>(`${this.apiUrl}/details/${id}`).pipe(

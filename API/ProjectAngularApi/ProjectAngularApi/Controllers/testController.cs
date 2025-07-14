@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProjectAngularApi.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles="Admin", AuthenticationSchemes = "Bearer")]
     public class TestController : ControllerBase
     {
 
-        [HttpGet]
+        [HttpGet("ak")]
         public string GetWelcome()
         {
             return "Welcome";

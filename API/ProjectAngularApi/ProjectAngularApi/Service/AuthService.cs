@@ -26,7 +26,50 @@ namespace ProjectAngularApi.Service
             _roleManager = roleManager;
             _jwt = jwt;
         }
+        public async Task<AuthModel> SeedAdminAsync()
+        {
+            if (!await _roleManager.RoleExistsAsync(UserRole.Admin.ToString()))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(UserRole.Admin.ToString()));
+                return new AuthModel { Message = "This Rolse doesn't exist " };
+            }
+            var adminEmail = "admin@exam.com";
+            var adminUser = await _userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
 
+                var result = await _userManager.CreateAsync(user, "Admin@123");
+                if (!result.Succeeded)
+                {
+                    var errors = string.Empty;
+                    foreach (var error in result.Errors)
+                    {
+                        errors += $"{error.Description}, ";
+                    }
+                    return new AuthModel { Message = errors };
+                }
+                await _userManager.AddToRoleAsync(user, UserRole.Admin.ToString());
+                var jwtSecurityToken = await CreateJwtToken(user);
+
+                return new AuthModel
+                {
+                    Email = user.Email,
+                    ExpiresOn = jwtSecurityToken.ValidTo,
+                    IsAuthenticated = true,
+                    Roles = new List<string> { UserRole.Admin.ToString() },
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                    UserName = user.UserName
+                };
+
+            }
+            return new AuthModel() { Message = "This email is already registered" };
+        }
         public async Task<AuthModel> RegisterAsync(RegisterDto registerModel)
         {
             if (await _userManager.FindByEmailAsync(registerModel.Email) is not null)

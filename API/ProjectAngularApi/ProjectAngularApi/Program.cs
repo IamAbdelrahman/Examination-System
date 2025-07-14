@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectAngularApi.Models.Entities;
@@ -15,91 +16,56 @@ using ProjectAngularApi.Service.DB;
 using ProjectAngularApi.Service.IServices;
 using ProjectAngularApi.Utils;
 using System.Configuration;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ProjectAngularApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(options =>
-            {
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer {token}'"
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-                });
+            builder.Services.AddSwaggerGen();
 
-            });
-
-            //builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
-            var jwtOptions = builder.Configuration.GetSection("JWT").Get<JWT>();
+            var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JWT>();
             builder.Services.AddSingleton(jwtOptions);
 
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
             })
             .AddJwtBearer(o =>
             {
-                //var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]);
                 var key = Encoding.UTF8.GetBytes(jwtOptions.SigningKey);
                 o.RequireHttpsMetadata = false;
                 o.SaveToken = true;
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = jwtOptions.Issuer, // builder.Configuration["JWT:Issuer"],
+                    ValidIssuer = jwtOptions.Issuer, 
                     ValidateAudience = true,
-                    ValidAudience = jwtOptions.Audience, //builder.Configuration["JWT:Audience"],
+                    ValidAudience = jwtOptions.Audience,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
+            builder.Services.AddOpenApi();
             builder.Services.AddDbContext<AngularContext>(optionsBuilder =>
             {
                 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
             });
-
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AngularContext>();
-
             builder.Services.AddScoped<IExamRepo, ExamRepo>();
-
             builder.Services.AddScoped<IExamResultRepo, ExamResultRepo>();
-
             builder.Services.AddScoped<IOptionRepo, OptionRepo>();
-
             builder.Services.AddScoped<IQuestionRepo, QuestionRepo>();
-
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddAuthorization();
@@ -113,18 +79,19 @@ namespace ProjectAngularApi
             });
 
             var app = builder.Build();
-
+            app.UseCors("AllowAngularApp");
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-
-                // The path should be "/openapi/v1.json"
                 app.UseSwaggerUI(op => op.SwaggerEndpoint("/openapi/v1.json", "v1"));
             }
-
+            using (var scope = app.Services.CreateScope())
+            {
+                var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+                await authService.SeedAdminAsync();
+            }
             app.UseHttpsRedirection();
-            app.UseCors("AllowAngularApp");
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
