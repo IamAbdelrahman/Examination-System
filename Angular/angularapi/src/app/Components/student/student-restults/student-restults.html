@@ -1,0 +1,143 @@
+<div class="results-container">
+  <!-- Floating Background Shapes -->
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="small-shapes">
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <h2>My Exam Results</h2>
+    
+    @if (loading()) {
+      <div class="loading-container">
+        <div class="document loading-document">
+          <div class="loading-spinner"></div>
+          <div class="face">
+            <div class="eyes">
+              <div class="eye"></div>
+              <div class="eye"></div>
+            </div>
+            <div class="mouth loading-mouth"></div>
+          </div>
+        </div>
+        <div class="loading-text">Loading results...</div>
+      </div>
+    } @else if (error()) {
+      <div class="error-container">
+        <div class="document error-document">
+          <div class="error-label">ERROR</div>
+          <div class="face">
+            <div class="eyes">
+              <div class="eye"></div>
+              <div class="eye"></div>
+            </div>
+            <div class="mouth error-mouth"></div>
+          </div>
+          <div class="sad-icon">
+            <div class="sad-line"></div>
+            <div class="sad-line"></div>
+          </div>
+        </div>
+        <div class="error-text">{{ error() }}</div>
+      </div>
+    } @else {
+      <div class="results-grid">
+        @for (result of results(); track result.resultId) {
+          <div class="result-card">
+            <div class="character-container">
+              <div class="document" [class]="'success-document ' + getScoreClass(result.percentage)">
+                <div class="score-label" [class]="getScoreClass(result.percentage)">
+                  {{ result.percentage }}%
+                </div>
+                <div class="face">
+                  <div class="eyes">
+                    <div class="eye" [class]="getScoreClass(result.percentage)"></div>
+                    <div class="eye" [class]="getScoreClass(result.percentage)"></div>
+                  </div>
+                  <div class="mouth" [class]="getScoreClass(result.percentage)"></div>
+                </div>
+                @if (result.percentage >= 70) {
+                  <div class="trophy">
+                    <div class="trophy-cup"></div>
+                    <div class="trophy-base"></div>
+                  </div>
+                } @else {
+                  <div class="magnifying-glass">
+                    <div class="glass-circle"></div>
+                    <div class="glass-handle"></div>
+                  </div>
+                }
+              </div>
+            </div>
+            
+            <div class="result-content">
+              <div class="result-header">
+                <h3>{{ result.examTitle }}</h3>
+                <span class="result-date">{{ result.dateTaken | date:'mediumDate' }}</span>
+              </div>
+              
+              <div class="result-summary">
+                <!-- <div class="score-display">
+                  <span class="score">{{ result.correctAnswers || 0 }}</span>
+                  <span class="score-separator">/</span>
+                  <span class="total">{{ result.totalQuestions || 0 }}</span>
+                </div> -->
+                
+                <div class="percentage-badge" [class]="getScoreClass(result.percentage)">
+                  {{ result.percentage }}%
+                </div>
+              </div>
+              
+              <a [routerLink]="['/student/result', result.resultId]" class="details-btn">
+                <span class="btn-icon">👁️</span>
+                View Details
+              </a>
+            </div>
+          </div>
+        } @empty {
+          <div class="no-results">
+            <div class="document">
+              <div class="face">
+                <div class="eyes">
+                  <div class="eye"></div>
+                  <div class="eye"></div>
+                </div>
+                <div class="mouth"></div>
+              </div>
+              <div class="magnifying-glass">
+                <div class="glass-circle"></div>
+                <div class="glass-handle"></div>
+              </div>
+            </div>
+            <div class="no-results-text">
+              <h3>No Exam Results Found</h3>
+              <p>You haven't taken any exams yet.</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage() === 1" class="page-btn">
+          <span>←</span> Previous
+        </button>
+        <span class="page-info">Page {{ currentPage() }}</span>
+        <button (click)="nextPage()" [disabled]="results().length < pageSize" class="page-btn">
+          Next <span>→</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>dsf

@@ -1,0 +1,96 @@
+/* Import the existing styles from exam-details.css */
+@import url('../../admin/Exam/exam-details/exam-details.css');
+
+/* Additional styles for exam taking */
+.option-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.option-item:hover {
+  background: #e8f5e8;
+  border-color: #d4edda;
+}
+
+.option-item input[type="radio"] {
+  margin-right: 12px;
+  transform: scale(1.2);
+}
+
+.option-item input[type="radio"]:checked + .option-content {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.option-item:has(input[type="radio"]:checked) {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-color: #27ae60;
+}
+
+.option-item:has(input[type="radio"]:checked) .option-letter {
+  background: #27ae60;
+}
+
+/* Question result states */
+.correct-question {
+  border-left: 4px solid #27ae60 !important;
+}
+
+.incorrect-question {
+  border-left: 4px solid #e74c3c !important;
+}
+
+.correct-badge {
+  background: #27ae60 !important;
+  color: white !important;
+}
+
+.incorrect-badge {
+  background: #e74c3c !important;
+  color: white !important;
+}
+
+/* Result info styling */
+.result-info {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.result-info p {
+  margin-bottom: 8px;
+}
+
+.result-info strong {
+  color: #333;
+}
+
+/* Form validation states */
+.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.ng-valid.ng-touched {
+  border-color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .option-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .option-item input[type="radio"] {
+    margin-bottom: 8px;
+  }
+}

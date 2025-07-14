@@ -9,6 +9,10 @@ import { LoginComponent } from './Components/auth/login/login';
 import { RegisterComponent} from './Components/auth/register/register';
 import { AdminDashboard } from './Components/admin/admin-dashboard/admin-dashboard';
 import { StudentDashboard} from './Components/student/student-dashboard/student-dashboard';
+import { StudentExamList } from './Components/student/student-exam-list/student-exam-list';
+import { ExamTaking } from './Components/student/exam-taking/exam-taking';
+import { StudentResults } from './Components/student/student-restults/student-restults';
+import { ResultDetails } from './Components/student/result-details/result-details';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,6 +24,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'Admin' }
   },
+   { path: 'student/exams', component:StudentExamList },
+    { path: 'student/results', component:StudentResults},
+   { path: 'student/result/:id', component:ResultDetails},
   {
     path: 'student-dashboard', 
     component: StudentDashboard,
@@ -27,6 +34,8 @@ export const routes: Routes = [
     data: { role: 'Student' }
   },
   { path: 'exam', component: AllExamsComponent },
+    { path: 'student/exam/:id', component:ExamTaking },
+
   { 
     path: 'exam/create', 
     component: CreateExam,

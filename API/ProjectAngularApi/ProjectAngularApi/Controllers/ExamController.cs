@@ -9,6 +9,8 @@ using ProjectAngularApi.Repositories.IRepositories;
 namespace ProjectAngularApi.Controllers
 {
 
+    [Authorize(AuthenticationSchemes = "Bearer")]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ExamController : ControllerBase
@@ -19,7 +21,7 @@ namespace ProjectAngularApi.Controllers
         {
             this.examRepo = examRepo;
         }
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public IActionResult GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
