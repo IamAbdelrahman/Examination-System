@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace ProjectAngularApi.Service
 {
@@ -39,9 +40,10 @@ namespace ProjectAngularApi.Service
             {
                 var user = new ApplicationUser
                 {
-                    UserName = "admin",
+                    UserName = "Admin_IT",
                     Email = adminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    FullName = "Abdelruhman Kamal"
                 };
 
                 var result = await _userManager.CreateAsync(user, "Admin@123");
@@ -111,23 +113,23 @@ namespace ProjectAngularApi.Service
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
-            var rolesClaims = new List<Claim>();
+            //var rolesClaims = new List<Claim>();
 
-            foreach (var role in roles)
-            {
-                rolesClaims.Add(new Claim(ClaimTypes.Role, role)); // instead of "roles"
-            }
-
+            //foreach (var role in roles)
+            //{
+            //    rolesClaims.Add(new Claim(ClaimTypes.Role, role)); // instead of "roles"
+            //}
+            var rolesArrayClaim = new Claim("roles", JsonSerializer.Serialize(roles));
 
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("Uid", user.Id)
+                new Claim("Uid", user.Id),
+                rolesArrayClaim
             }
-            .Union(userClaims)
-            .Union(rolesClaims);
+            .Union(userClaims);
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SigningKey));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
