@@ -123,13 +123,11 @@ export class AllExamsComponent implements OnInit {
   }
 
   addExam() {
-    // TODO: Navigate to add exam page
     console.log('Navigate to add exam page');
     this.router.navigate(['/exam/create']);
   }
 
   viewDetails(examId: number) {
-    // TODO: Navigate to exam details page
     console.log('Navigate to exam details page for ID:', examId);
   this.router.navigate(['/exam/details', examId]);
   }

@@ -106,7 +106,6 @@ namespace ProjectAngularApi.Controllers
                 if (string.IsNullOrEmpty(userId))
                     return Unauthorized("User not authenticated or user ID not found in token.");
 
-                // Debug logging
                 Console.WriteLine($"User ID from token: {userId}");
                 Console.WriteLine($"Exam ID: {submissionDto.ExamId}");
 
@@ -217,6 +216,24 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
+         [HttpGet("{examId}/check-taken")]
+        public IActionResult CheckExamTaken(int examId)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userId))
+                    return Unauthorized("User not authenticated.");
+
+                var existingResult = examResultRepo.GetByStudentAndExam(userId, examId);
+                return Ok(new { HasTaken = existingResult != null });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while checking exam status.");
+            }
+        }
+
         [HttpGet("results")]
         public IActionResult GetMyResults([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
@@ -285,6 +302,7 @@ namespace ProjectAngularApi.Controllers
                 return StatusCode(500, "An error occurred while retrieving the result details.");
             }
         }
+
 
         [HttpGet("search")]
         public IActionResult SearchExams([FromQuery] string title, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)

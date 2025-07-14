@@ -1,0 +1,104 @@
+<div class="floating-shapes">
+  <div class="shape" style="--rotate: 25deg;"></div>
+  <div class="shape" style="--rotate: -30deg;"></div>
+  <div class="shape" style="--rotate: 45deg;"></div>
+  <div class="shape" style="--rotate: -15deg;"></div>
+  <div class="shape" style="--rotate: 60deg;"></div>
+  <div class="shape" style="--rotate: -45deg;"></div>
+  
+  <div class="small-shapes">
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Loading State -->
+  <div *ngIf="loading()" class="character-container">
+    <div class="document loading-document">
+      <div class="loading-spinner"></div>
+      <div class="face">
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth loading-mouth"></div>
+      </div>
+    </div>
+    <h1 class="title">Loading...</h1>
+    <p class="subtitle">Please wait while we fetch your result details</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error() && !loading()" class="character-container">
+    <div class="document error-document">
+      <div class="error-label">Error</div>
+      <div class="face">
+        <div class="eyes">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="mouth error-mouth"></div>
+      </div>
+      <div class="magnifying-glass">
+        <div class="glass-circle"></div>
+        <div class="glass-handle"></div>
+      </div>
+    </div>
+    <h1 class="title">Oops!</h1>
+    <p class="subtitle">{{ error() }}</p>
+    <button class="retry-button" (click)="returnToList()">Back to Results</button>
+  </div>
+
+  <!-- Success State -->
+  <div *ngIf="result() && !loading() && !error()" class="character-container">
+    <div class="document success-document">
+      <div class="score-label" [class]="getScoreClass()">
+        {{ result()?.percentage }}%
+      </div>
+      <div class="face">
+        <div class="eyes">
+          <div class="eye" [class]="getScoreClass()"></div>
+          <div class="eye" [class]="getScoreClass()"></div>
+        </div>
+        <div class="mouth" [class]="getScoreClass()"></div>
+      </div>
+      <div class="trophy" *ngIf="(result()?.percentage ?? 0) >= 70">
+        <div class="trophy-cup"></div>
+        <div class="trophy-base"></div>
+      </div>
+      <div class="sad-icon" *ngIf="(result()?.percentage ?? 0) < 70">
+        <div class="sad-line"></div>
+        <div class="sad-line"></div>
+      </div>
+    </div>
+    
+    <h1 class="title">{{ result()?.examTitle }}</h1>
+    <p class="subtitle">
+      You scored {{ result()?.score }} out of {{ result()?.totalQuestions }} questions
+      <br>
+      <span class="date-text">Taken on {{ result()?.dateTaken | date:'mediumDate' }}</span>
+    </p>
+    
+    <div class="result-stats">
+      <div class="stat-item">
+        <div class="stat-value correct">{{ result()?.score }}</div>
+        <div class="stat-label">Correct</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value total">{{ result()?.totalQuestions }}</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" [class]="getScoreClass()">{{ result()?.percentage }}%</div>
+        <div class="stat-label">Score</div>
+      </div>
+    </div>
+
+    <button class="retry-button" (click)="returnToList()">Back to Results</button>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+<!-- Floating shapes background -->
+<div class="floating-shapes">
+  <div class="shape" style="--rotate: 25deg;"></div>
+  <div class="shape" style="--rotate: -30deg;"></div>
+  <div class="shape" style="--rotate: 45deg;"></div>
+  <div class="small-shapes">
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+    <div class="small-shape"></div>
+  </div>
+</div>
+
+<div class="exam-container">
+  <!-- Header with back button -->
+  <div class="header-section">
+    <button class="back-button" (click)="returnToExams()">
+      ← Back to Exams
+    </button>
+    <h2 class="exam-title">Take Exam</h2>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading exam...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-message">
+      {{ error() }}
+    </div>
+  } @else if (alreadyTaken()) {
+    <div class="exam-header-card">
+      <h3 class="exam-header-title">Exam Already Taken</h3>
+      <p class="exam-header-description">You have already taken this exam. You cannot take it again.</p>
+      <div class="text-center mt-3">
+        <button class="btn btn-primary" (click)="returnToExams()">Return to Exams</button>
+      </div>
+    </div>
+  } @else if (result()) {
+    <!-- Exam Results -->
+    <div class="exam-header-card">
+      <h3 class="exam-header-title">Exam Results: {{ result()?.examTitle }}</h3>
+      <div class="exam-stats">
+        <span class="stat-badge">
+          📊 Score: {{ result()?.score }} / {{ result()?.totalQuestions }}
+        </span>
+        <span class="stat-badge">
+          📈 Percentage: {{ result()?.percentage }}%
+        </span>
+        <span class="stat-badge">
+          📅 {{ result()?.dateTaken | date:'medium' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Question Results -->
+    <div class="questions-container">
+      @for (question of result()?.questionResults; track question.questionId; let i = $index) {
+        <div class="question-card" [class.correct-question]="question.isCorrect" [class.incorrect-question]="!question.isCorrect">
+          <div class="question-header">
+            <h4 class="question-title">Question {{ i + 1 }}</h4>
+            <span class="question-number" [class.correct-badge]="question.isCorrect" [class.incorrect-badge]="!question.isCorrect">
+              {{ question.isCorrect ? '✓' : '✗' }}
+            </span>
+          </div>
+          
+          <div class="question-text">
+            {{ question.questionText }}
+          </div>
+
+          <div class="result-info">
+            <p><strong>Your answer:</strong> {{ question.selectedOptionText }}</p>
+            <p><strong>Correct answer:</strong> {{ question.correctOptionText }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-primary" (click)="returnToExams()">Return to Exams</button>
+    </div>
+  } @else {
+    <!-- Exam Taking Form -->
+    <div class="exam-header-card">
+      <h3 class="exam-header-title">{{ exam()?.title }}</h3>
+      <p class="exam-header-description">{{ exam()?.description }}</p>
+      <div class="exam-stats">
+        <span class="stat-badge">
+          📋 {{ exam()?.questions?.length || 0 }} Questions
+        </span>
+      </div>
+    </div>
+
+    <form (ngSubmit)="submitExam()" #examForm="ngForm">
+      <div class="questions-container">
+        @for (question of exam()?.questions; track question.id; let i = $index) {
+          <div class="question-card">
+            <div class="question-header">
+              <h4 class="question-title">Question {{ i + 1 }}</h4>
+              <span class="question-number">#{{ i + 1 }}</span>
+            </div>
+            
+            <div class="question-text">
+              {{ question.text }}
+            </div>
+
+            <div class="options-container">
+              <h5 class="options-title">Select your answer:</h5>
+              <div class="options-list">
+                @for (option of question.options; track option.id; let j = $index) {
+                  <label class="option-item">
+                    <input 
+                      type="radio" 
+                      name="question_{{ question.id }}" 
+                      [(ngModel)]="answers()[question.id]" 
+                      [value]="option.id"
+                      required
+                      class="form-check-input"
+                    >
+                    <div class="option-content">
+                      <span class="option-letter">{{ getOptionLetter(j) }}</span>
+                      <span class="option-text">{{ option.text }}</span>
+                    </div>
+                  </label>
+                }
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-message">
+            <div class="empty-icon">❓</div>
+            <p>No questions available for this exam</p>
+          </div>
+        }
+      </div>
+
+      <div class="text-center mt-4">
+        <button 
+          type="submit" 
+          [disabled]="examForm.invalid || submitting()" 
+          class="btn btn-success btn-lg"
+        >
+          @if (submitting()) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Submitting...
+          } @else {
+            Submit Exam
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>

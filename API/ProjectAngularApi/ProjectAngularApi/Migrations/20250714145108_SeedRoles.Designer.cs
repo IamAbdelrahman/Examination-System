@@ -12,8 +12,8 @@ using ProjectAngularApi.Service.DB;
 namespace ProjectAngularApi.Migrations
 {
     [DbContext(typeof(AngularContext))]
-    [Migration("20250713201019_ms")]
-    partial class ms
+    [Migration("20250714145108_SeedRoles")]
+    partial class SeedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
