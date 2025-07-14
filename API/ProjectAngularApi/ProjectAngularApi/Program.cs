@@ -16,13 +16,14 @@ using ProjectAngularApi.Service.DB;
 using ProjectAngularApi.Service.IServices;
 using ProjectAngularApi.Utils;
 using System.Configuration;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ProjectAngularApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
@@ -85,7 +86,11 @@ namespace ProjectAngularApi
                 app.MapOpenApi();
                 app.UseSwaggerUI(op => op.SwaggerEndpoint("/openapi/v1.json", "v1"));
             }
-
+            using (var scope = app.Services.CreateScope())
+            {
+                var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+                await authService.SeedAdminAsync();
+            }
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
