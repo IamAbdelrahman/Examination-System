@@ -7,15 +7,14 @@ import { AllExamsComponent } from "./Components/admin/Exam/all-exams/all-exams";
 import { CreateExam } from "./Components/admin/Exam/create-exam/create-exam";
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
   imports: [RouterModule, Header], 
+  standalone: true
 })
 export class App {
   protected title = 'angularapi';
 }
-
 

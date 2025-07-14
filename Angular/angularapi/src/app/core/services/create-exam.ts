@@ -42,7 +42,7 @@ interface OptionResponseDto {
 })
 export class CreateExamService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5125/api/exam';
+  private apiUrl = 'https://localhost:44301/api/exam';
 
   createExam(examData: CreateExamDto): Observable<ExamResponseDto> {
     return this.http.post<ExamResponseDto>(this.apiUrl, examData).pipe(

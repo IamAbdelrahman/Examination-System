@@ -1,15 +1,23 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { 
+  ApplicationConfig, 
+  provideBrowserGlobalErrorListeners
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-
-
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
-
+import { TokenStorageService } from './core/services/token-storage.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
-      provideHttpClient(),
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
     provideRouter(routes),
+    provideBrowserGlobalErrorListeners(),
+    TokenStorageService,
   ]
 };

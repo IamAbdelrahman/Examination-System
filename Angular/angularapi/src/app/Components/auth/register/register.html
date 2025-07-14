@@ -1,1 +1,144 @@
-<p>register works!</p>
+<div class="auth-container">
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="small-shapes">
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+      <div class="small-shape"></div>
+    </div>
+  </div>
+  
+  <h2>Register</h2>
+  
+  <div class="form-container" [class.hidden]="isHidden">
+    <h1 class="form-title">Create Account</h1>
+    <p class="form-subtitle">Join us today and start your journey</p>
+
+    <!-- Angular-based error handling -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="registerName" class="form-label">Full Name</label>
+        <input 
+          type="text" 
+          [(ngModel)]="fullName" 
+          name="fullName" 
+          id="registerName" 
+          class="form-input"
+          placeholder="Enter your full name" 
+          required
+          #fullNameInput="ngModel">
+        <div *ngIf="fullNameInput.invalid && fullNameInput.touched" class="field-error">
+          Full name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerUserName" class="form-label">User Name</label>
+        <input 
+          type="text" 
+          [(ngModel)]="userName" 
+          name="userName" 
+          id="registerUserName" 
+          class="form-input"
+          placeholder="Enter your user name" 
+          required
+          #userNameInput="ngModel">
+        <div *ngIf="userNameInput.invalid && userNameInput.touched" class="field-error">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerEmail" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          id="registerEmail" 
+          class="form-input" 
+          placeholder="Enter your email"
+          required
+          email
+          #emailInput="ngModel">
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="field-error">
+          <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+          <span *ngIf="emailInput.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="registerPassword" class="form-label">Password</label>
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          id="registerPassword" 
+          class="form-input"
+          placeholder="Create a password" 
+          required
+          minlength="6"
+          #passwordInput="ngModel">
+        <div class="password-strength">
+          <div class="strength-bar" [class]="getPasswordStrength()"></div>
+        </div>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="field-error">
+          <span *ngIf="passwordInput.errors?.['required']">Password is required</span>
+          <span *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input 
+          type="password" 
+          [(ngModel)]="confirmPassword" 
+          name="confirmPassword" 
+          id="confirmPassword" 
+          class="form-input"
+          placeholder="Confirm your password" 
+          required
+          #confirmPasswordInput="ngModel">
+        <div *ngIf="confirmPasswordInput.touched && password !== confirmPassword" class="field-error">
+          Passwords do not match
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="agreeTerms"
+          name="agreeTerms"
+          id="agreeTerms" 
+          class="checkbox-input" 
+          required
+          #termsInput="ngModel">
+        <label for="agreeTerms" class="checkbox-label">I agree to the Terms and Conditions</label>
+        <div *ngIf="termsInput.invalid && termsInput.touched" class="field-error">
+          You must agree to the terms and conditions
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="form-button" 
+        [disabled]="registerForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Creating Account...' : 'Register' }}
+      </button>
+    </form>
+
+    <div class="form-toggle">
+      <p>Already have an account?</p>
+      <a href="#" class="toggle-link" (click)="navigateToLogin($event)">Sign In</a>
+    </div>
+  </div>
+</div>

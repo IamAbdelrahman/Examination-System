@@ -1,0 +1,224 @@
+<!-- Floating shapes background -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="small-shapes">
+            <div class="small-shape"></div>
+            <div class="small-shape"></div>
+            <div class="small-shape"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">ExamSystem</div>
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <div class="user-details">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Administrator</div>
+                </div>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Toggle -->
+    <div class="dashboard-toggle">
+        <button class="toggle-btn active" onclick="switchDashboard('admin')">Admin Dashboard</button>
+        <button class="toggle-btn" onclick="switchDashboard('student')">Student Dashboard</button>
+    </div>
+
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="dashboard active">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Exams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value">342</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Completed Exams</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="#" class="action-btn">
+                    <span class="action-icon">➕</span>
+                    <div class="action-title">Create New Exam</div>
+                    <div class="action-description">Design a new exam with questions</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <span class="action-icon">❓</span>
+                    <div class="action-title">Manage Questions</div>
+                    <div class="action-description">Add, edit, or delete questions</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <span class="action-icon">👥</span>
+                    <div class="action-title">Manage Students</div>
+                    <div class="action-description">View and manage student accounts</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <span class="action-icon">📈</span>
+                    <div class="action-title">View Reports</div>
+                    <div class="action-description">Analyze exam results and statistics</div>
+                </a>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <div class="activity-header">
+                    <h3 class="activity-title">Recent Activity</h3>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-content">
+                            <div class="activity-text">New exam "Mathematics Final" created</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">✅</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Student "Alice Smith" completed "Physics Quiz"</div>
+                            <div class="activity-time">3 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">❓</div>
+                        <div class="activity-content">
+                            <div class="activity-text">5 new questions added to "Chemistry Test"</div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam List -->
+            <div class="exam-list">
+                <div class="activity-header">
+                    <h3 class="activity-title">Recent Exams</h3>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-info">
+                        <div class="exam-title">Mathematics Final Exam</div>
+                        <div class="exam-meta">
+                            <span>25 questions</span>
+                            <span>2 hours</span>
+                            <span>Created: Jan 15, 2025</span>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-status status-available">Available</span>
+                        <a href="#" class="exam-btn btn-primary">View</a>
+                        <a href="#" class="exam-btn btn-secondary">Edit</a>
+                        <a href="#" class="exam-btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-info">
+                        <div class="exam-title">Physics Quiz</div>
+                        <div class="exam-meta">
+                            <span>15 questions</span>
+                            <span>1 hour</span>
+                            <span>Created: Jan 12, 2025</span>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-status status-completed">Completed</span>
+                        <a href="#" class="exam-btn btn-primary">Results</a>
+                        <a href="#" class="exam-btn btn-secondary">Edit</a>
+                    </div>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-info">
+                        <div class="exam-title">Chemistry Test</div>
+                        <div class="exam-meta">
+                            <span>20 questions</span>
+                            <span>90 minutes</span>
+                            <span>Created: Jan 10, 2025</span>
+                        </div>
+                    </div>
+                    <div class="exam-actions">
+                        <span class="exam-status status-draft">Draft</span>
+                        <a href="#" class="exam-btn btn-secondary">Edit</a>
+                        <a href="#" class="exam-btn btn-primary">Publish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function switchDashboard(type) {
+            // Hide all dashboards
+            document.querySelectorAll('.dashboard').forEach(dashboard => {
+                dashboard.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected dashboard
+            document.getElementById(type + '-dashboard').classList.add('active');
+            
+            // Update active button
+            event.target.classList.add('active');
+            
+            // Update user role in header
+            const userRole = document.querySelector('.user-role');
+            if (type === 'admin') {
+                userRole.textContent = 'Administrator';
+            } else {
+                userRole.textContent = 'Student';
+            }
+        }
+
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for action buttons
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('This would navigate to: ' + this.querySelector('.action-title').textContent);
+                });
+            });
+
+            // Add click handlers for exam buttons
+            document.querySelectorAll('.exam-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Action: ' + this.textContent);
+                });
+            });
+
+            // Add click handler for logout
+            document.querySelector('.logout-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    alert('Logout functionality would be implemented here');
+                }
+            });
+        });
+    </script>
