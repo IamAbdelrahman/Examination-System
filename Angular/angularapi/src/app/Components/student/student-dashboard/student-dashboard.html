@@ -1,3 +1,14 @@
+    <!-- Floating shapes background -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="small-shapes">
+            <div class="small-shape"></div>
+            <div class="small-shape"></div>
+            <div class="small-shape"></div>
+        </div>
+    </div>
 <div id="student-dashboard" class="dashboard">
     <!-- Stats Grid -->
     <div class="stats-grid">
@@ -27,23 +38,31 @@
     <div class="action-buttons">
         <a href="#" class="action-btn">
             <span class="action-icon">📝</span>
-            <div class="action-title">Take Exam</div>
-            <div class="action-description">Start a new exam session</div>
+            <div>
+                <div class="action-title">Take Exam</div>
+                <div class="action-description">Start a new exam session</div>
+            </div>
         </a>
         <a href="#" class="action-btn">
             <span class="action-icon">📊</span>
-            <div class="action-title">View Results</div>
-            <div class="action-description">Check your exam results</div>
+            <div>
+                <div class="action-title">View Results</div>
+                <div class="action-description">Check your exam results</div>
+            </div>
         </a>
         <a href="#" class="action-btn">
             <span class="action-icon">📖</span>
-            <div class="action-title">Study Materials</div>
-            <div class="action-description">Access study resources</div>
+            <div>
+                <div class="action-title">Study Materials</div>
+                <div class="action-description">Access study resources</div>
+            </div>
         </a>
         <a href="#" class="action-btn">
             <span class="action-icon">⚙️</span>
-            <div class="action-title">Profile Settings</div>
-            <div class="action-description">Update your profile information</div>
+            <div>
+                <div class="action-title">Profile Settings</div>
+                <div class="action-description">Update your profile information</div>
+            </div>
         </a>
     </div>
 
@@ -130,3 +149,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Add some interactive functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add click handlers for action buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('This would navigate to: ' + this.querySelector('.action-title').textContent);
+            });
+        });
+
+        // Add click handlers for exam buttons
+        document.querySelectorAll('.exam-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('Action: ' + this.textContent);
+            });
+        });
+
+        // Add click handlers for view all buttons
+        document.querySelectorAll('.view-all-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                alert('View All functionality would be implemented here');
+            });
+        });
+    });
+</script>

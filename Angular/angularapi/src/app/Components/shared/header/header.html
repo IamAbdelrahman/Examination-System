@@ -1,28 +1,21 @@
 <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="#">EvalEdge</a>
-
-    <button class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let item of studentNavItems">
-          <a class="nav-link"
-             [routerLink]="item.route"
-             routerLinkActive="active">
-            <i [class]="item.icon" *ngIf="item.icon"></i>
-            {{ item.label }}
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🎓</div>
+                <span class="navbar-brand fw-bold">EvalEdge</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Dashboard</a>
+                <a href="#" class="nav-link">Exams</a>
+                <a href="#" class="nav-link">Results</a>
+                <a href="#" class="nav-link">Profile</a>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Student</div>
+                </div>
+                <div class="user-avatar">JD</div>
+            </div>
+        </div>
+    </nav>

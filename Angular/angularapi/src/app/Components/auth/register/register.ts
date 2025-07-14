@@ -1,8 +1,10 @@
-// register.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.html',
@@ -22,7 +24,7 @@ export class RegisterComponent {
   isSubmitting: boolean = false;
   isHidden: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   register() {
     if (this.password !== this.confirmPassword) {
@@ -37,24 +39,25 @@ export class RegisterComponent {
 
     this.isSubmitting = true;
     this.error = '';
+    this.successMessage = '';
 
-    // Your registration logic here
-    console.log('Registration data:', {
+    const model = {
       fullName: this.fullName,
       userName: this.userName,
       email: this.email,
       password: this.password
-    });
+    };
 
-    // Simulate API call
-    setTimeout(() => {
-      this.isSubmitting = false;
-      this.successMessage = 'Account created successfully! Please check your email.';
-      // Redirect to login after success
-      setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 2000);
-    }, 2000);
+    this.authService.register(model).subscribe({
+      next: (res) => {
+        this.successMessage = 'Account created successfully!';
+        setTimeout(() => this.router.navigate(['/login']), 2000);
+      },
+      error: (err) => {
+        this.error = err.error?.message || 'Registration failed. Please try again.';
+        this.isSubmitting = false;
+      }
+    });
   }
 
   navigateToLogin(event: Event) {
@@ -64,7 +67,7 @@ export class RegisterComponent {
 
   getPasswordStrength(): string {
     if (!this.password) return '';
-    
+
     const strength = this.calculatePasswordStrength(this.password);
     if (strength < 30) return 'weak';
     if (strength < 70) return 'medium';

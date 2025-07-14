@@ -28,12 +28,8 @@ export class LoginComponent {
         this.tokenStorage.saveToken(res.token);
         const decoded: any = jwtDecode(res.token);
         const roles: string[] = JSON.parse(decoded.roles);
-
-        console.log(roles); // ✅ ["Admin"]
-        console.log(roles[0]); // ✅ "Admin"
-        console.log(decoded);
-        if (roles.includes('Admin')) this.router.navigate(['/exam']);
-        else this.router.navigate(['/exam-details']);
+        if (roles.includes('Admin')) this.router.navigate(['/admin-dashboard']);
+        else this.router.navigate(['/student-dashboard']);
       },
       error: (err) => {
         this.error = 'Invalid email or password';

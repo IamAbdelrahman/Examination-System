@@ -8,6 +8,8 @@ import { routes } from './app.routes';
 import { TokenStorageService } from './core/services/token-storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/auth.interceptor';
+import { AuthGuard } from './core/guards/auth.guards';
+import { RoleGuard } from './core/guards/role.guard';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
@@ -17,7 +19,9 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     provideRouter(routes),
+    AuthGuard,
+    // RoleGuard,
     provideBrowserGlobalErrorListeners(),
-    TokenStorageService,
+    TokenStorageService
   ]
 };
