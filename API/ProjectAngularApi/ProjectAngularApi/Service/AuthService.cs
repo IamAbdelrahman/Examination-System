@@ -113,12 +113,6 @@ namespace ProjectAngularApi.Service
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
-            //var rolesClaims = new List<Claim>();
-
-            //foreach (var role in roles)
-            //{
-            //    rolesClaims.Add(new Claim(ClaimTypes.Role, role)); // instead of "roles"
-            //}
             var rolesArrayClaim = new Claim("roles", JsonSerializer.Serialize(roles));
 
             var claims = new[]
