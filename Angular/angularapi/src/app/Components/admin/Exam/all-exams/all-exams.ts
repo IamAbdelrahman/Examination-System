@@ -125,7 +125,7 @@ export class AllExamsComponent implements OnInit {
   addExam() {
     // TODO: Navigate to add exam page
     console.log('Navigate to add exam page');
-    // Example: this.router.navigate(['/exams/add']);
+    this.router.navigate(['/exam/create']);
   }
 
   viewDetails(examId: number) {
