@@ -6,9 +6,11 @@ import { TokenStorageService } from '../../../core/services/token-storage.servic
 import { Router } from '@angular/router';
 import { ExamService } from '../../../core/services/exam-service';
 import { Header } from "../../shared/header/header";
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-student-dashboard',
-  imports: [Header],
+  imports: [Header,RouterModule ],
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css',
   standalone: true

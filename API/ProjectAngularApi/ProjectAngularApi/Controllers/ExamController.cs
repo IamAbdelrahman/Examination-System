@@ -9,6 +9,7 @@ using ProjectAngularApi.Repositories.IRepositories;
 namespace ProjectAngularApi.Controllers
 {
 
+
     [Authorize(Roles="Admin", AuthenticationSchemes = "Bearer")]
 
     [Route("api/[controller]")]
@@ -173,7 +174,6 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-
         [HttpDelete("{id}")]
         public IActionResult DeleteExam(int id)
         {
@@ -228,8 +228,6 @@ namespace ProjectAngularApi.Controllers
                 return StatusCode(500, "An error occurred while retrieving the exam.");
             }
         }
-
-
         [HttpGet("search")]
         public IActionResult SearchExams([FromQuery] string title)
         {

@@ -37,14 +37,16 @@
 
     <!-- Action Buttons -->
     <div class="action-buttons">
-        <div class="action-buttons">
-            <button class="action-btn" (click)="goToTakeExams()">
-                <span class="action-icon">📝</span>
+
+        <a routerLink="/student/exams" class="action-btn">
+            <span class="action-icon">📝</span>
+            <div>
                 <div class="action-title">Take Exam</div>
                 <div class="action-description">Start a new exam session</div>
-            </button>
-        </div>
-        <a href="#" class="action-btn">
+            </div>
+        </a>
+        <a routerLink="/student/results" class="action-btn">
+
             <span class="action-icon">📊</span>
             <div>
                 <div class="action-title">View Results</div>
