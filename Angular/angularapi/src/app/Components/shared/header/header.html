@@ -34,10 +34,6 @@
         @if(user()?.role == 'Admin')
         {
         <li class="nav-item" *ngFor="let item of adminNavItems">
-          <div class="user-info">
-            <div class="user-name">{{ user()?.name }}</div>
-            <div class="user-role">{{ user()?.role }}</div>
-          </div>
           <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
             <i [class]="item.icon" *ngIf="item.icon"></i>
             {{ item.label }}
