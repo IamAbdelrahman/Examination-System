@@ -57,7 +57,7 @@ export class AllExamsComponent implements OnInit {
     this.loading.set(true);
     this.error.set('');
 
-    const observable = this.searchTerm() 
+    const observable = this.searchTerm()
       ? this.examService.searchExams(this.searchTerm(), this.currentPage(), this.pageSize)
       : this.examService.getAllExams(this.currentPage(), this.pageSize);
 
@@ -127,6 +127,9 @@ export class AllExamsComponent implements OnInit {
 
   viewDetails(examId: number) {
     console.log('Navigate to exam details page for ID:', examId);
-  this.router.navigate(['/exam/details', examId]);
+    this.router.navigate(['/exam/details', examId]);
+  }
+  editExam(id: number): void {
+    this.router.navigate([`/exam/${id}`]);
   }
 }

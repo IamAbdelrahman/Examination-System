@@ -6,43 +6,54 @@ import { CreateExam } from './Components/admin/Exam/create-exam/create-exam';
 import { AuthGuard } from './core/guards/auth.guards';
 import { RoleGuard } from './core/guards/role.guard';
 import { LoginComponent } from './Components/auth/login/login';
-import { RegisterComponent} from './Components/auth/register/register';
+import { RegisterComponent } from './Components/auth/register/register';
 import { AdminDashboard } from './Components/admin/admin-dashboard/admin-dashboard';
-import { StudentDashboard} from './Components/student/student-dashboard/student-dashboard';
+import { StudentDashboard } from './Components/student/student-dashboard/student-dashboard';
 import { StudentExamList } from './Components/student/student-exam-list/student-exam-list';
 import { ExamTaking } from './Components/student/exam-taking/exam-taking';
 import { StudentResults } from './Components/student/student-restults/student-restults';
 import { ResultDetails } from './Components/student/result-details/result-details';
-
+import { UpdateExamComponent } from './Components/admin/Exam/update-exam/update-exam';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
-    path: 'admin-dashboard', 
+    path: 'admin-dashboard',
     component: AdminDashboard,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'Admin' }
   },
-   { path: 'student/exams', component:StudentExamList },
-    { path: 'student/results', component:StudentResults},
-   { path: 'student/result/:id', component:ResultDetails},
+  { path: 'student/exams', component: StudentExamList },
+  { path: 'student/results', component: StudentResults },
+  { path: 'student/result/:id', component: ResultDetails },
   {
-    path: 'student-dashboard', 
+    path: 'student-dashboard',
     component: StudentDashboard,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'Student' }
   },
   { path: 'exam', component: AllExamsComponent },
-    { path: 'student/exam/:id', component:ExamTaking },
+  { path: 'student/exam/:id', component: ExamTaking },
 
-  { 
-    path: 'exam/create', 
+  {
+    path: 'exam/create',
     component: CreateExam,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'Admin' }
   },
-  { path: 'exam/details/:id', component: ExamDetails },
+  {
+    path: 'exam/:id',
+    component: UpdateExamComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'Admin' }
+  },
+  {
+    path: 'exam/details/:id',
+    component: ExamDetails,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'Admin' }
+  },
   { path: '**', component: NotFound }
 ];
 

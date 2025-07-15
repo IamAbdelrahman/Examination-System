@@ -3,6 +3,7 @@
     padding: 1rem 0; /* Add vertical padding */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     background-color: #ffffff !important; /* Force white background for a clean look */
+    margin-bottom: 20px;
 }
 
 .nav-container {
@@ -12,6 +13,7 @@
     width: 90%; /* Adjust width as needed */
     max-width: 1200px; /* Max width for larger screens */
     margin: 0 auto; /* Center the container */
+
 }
 
 /* Logo Styling */

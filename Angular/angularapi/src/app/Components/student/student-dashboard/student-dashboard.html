@@ -1,15 +1,15 @@
-   <app-header/>
-   <!-- Floating shapes background -->
-    <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="small-shapes">
-            <div class="small-shape"></div>
-            <div class="small-shape"></div>
-            <div class="small-shape"></div>
-        </div>
+<app-header />
+<!-- Floating shapes background -->
+<div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="small-shapes">
+        <div class="small-shape"></div>
+        <div class="small-shape"></div>
+        <div class="small-shape"></div>
     </div>
+</div>
 <div id="student-dashboard" class="dashboard">
     <!-- Stats Grid -->
     <div class="stats-grid">
@@ -37,13 +37,13 @@
 
     <!-- Action Buttons -->
     <div class="action-buttons">
-        <a href="#" class="action-btn">
-            <span class="action-icon">📝</span>
-            <div>
+        <div class="action-buttons">
+            <button class="action-btn" (click)="goToTakeExams()">
+                <span class="action-icon">📝</span>
                 <div class="action-title">Take Exam</div>
                 <div class="action-description">Start a new exam session</div>
-            </div>
-        </a>
+            </button>
+        </div>
         <a href="#" class="action-btn">
             <span class="action-icon">📊</span>
             <div>
