@@ -1,51 +1,43 @@
-# =========================
-# Visual Studio / .NET Core
-# =========================
-.vs/
-**/bin/
-**/obj/
-*.user
-*.suo
+# 🎓 Exam Management System
 
-# NuGet packages
-**/packages/
-*.nupkg
+An end-to-end **exam management web application** built using **Angular** for the frontend and **ASP.NET Core Web API** for the backend. It supports authentication, role-based access control, and full exam creation, viewing, editing, and deletion features.
 
-# Build results
-*.dll
-*.exe
-*.pdb
+---
 
-# ASP.NET specific
-**/Properties/PublishProfiles/
+## 🚀 Features
 
-# =========================
-# Angular
-# =========================
-**/node_modules/
-**/dist/
-**/.angular/cache/
+### 👥 Authentication & Authorization
+- User **Registration** and **Login**
+- JWT Token-based Authentication
+- **Role-based access** (Admin / Student)
+- Route guards (`AuthGuard`, `RoleGuard`) for protected areas
 
-# Local environment files
-**/src/environments/*.ts
-!**/src/environments/environment.prod.ts
+### 🧪 Exam Management
+- **Admins** can:
+  - Create new exams with questions and options
+  - Update existing exams
+  - Delete exams
+  - View exam statistics
 
-# =========================
-# OS generated files
-# =========================
-.DS_Store
-Thumbs.db
+- **Students** can:
+  - View list of available exams
+  - Take exams (optional extension)
+  - View results (optional extension)
 
-# =========================
-# Logs and other runtime files
-# =========================
-*.log
+### 📄 Dashboard
+- Admin Dashboard: Overview of exams, number of questions, and quick actions
+- Student Dashboard: Upcoming/pending exams
 
-# =========================
-# Others
-# =========================
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.idea/
-*.iml
+---
+
+## 🛠️ Tech Stack
+
+| Frontend         | Backend            |
+|------------------|--------------------|
+| Angular 20       | ASP.NET Core 8     |
+| Reactive Forms   | Entity Framework   |
+| Bootstrap / CSS  | SQL Server         |
+| JWT Decode       | AutoMapper         |
+| Angular Guards   | RESTful APIs       |
+
+

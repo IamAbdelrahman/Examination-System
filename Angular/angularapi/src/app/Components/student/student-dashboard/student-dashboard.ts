@@ -1,3 +1,4 @@
+import { StudentResults } from './../student-restults/student-restults';
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
@@ -20,5 +21,8 @@ export class StudentDashboard {
   constructor(private tokenStorage: TokenStorageService, private router: Router) { }
   goToTakeExams(): void {
     this.router.navigate(['student/exams']);
+  }
+  logout(): void {
+    this.tokenStorage.clear();
   }
 }
