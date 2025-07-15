@@ -49,6 +49,10 @@
           </a>
         </li>
         }
+        <button class="nav-link" (click)="logout()">Logout</button>
+        }
+        @else {
+          <button class="nav-link" routerLink="/login">Login</button>
         }
       </ul>
     </div>
