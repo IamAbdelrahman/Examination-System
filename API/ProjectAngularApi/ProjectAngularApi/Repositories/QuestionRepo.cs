@@ -13,6 +13,13 @@ namespace ProjectAngularApi.Repositories
             this.context = _context;
         }
 
+        public int GetQuestionsCount
+        {
+            get
+            {
+                return context.Questions.Count();
+            }
+        }
         public void Add(Question entity)
         {
             context.Questions.Add(entity);

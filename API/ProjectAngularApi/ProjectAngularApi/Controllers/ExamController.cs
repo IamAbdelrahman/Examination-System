@@ -16,10 +16,11 @@ namespace ProjectAngularApi.Controllers
     public class ExamController : ControllerBase
     {
         private readonly IExamRepo examRepo;
-
-        public ExamController(IExamRepo examRepo)
+        private readonly IQuestionRepo _questionRepo;
+        public ExamController(IExamRepo examRepo, IQuestionRepo questionRepo)
         {
             this.examRepo = examRepo;
+            _questionRepo=questionRepo;
         }
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
@@ -57,7 +58,7 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-        [Authorize(Roles="Admin", AuthenticationSchemes = "Bearer")]
+        [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public IActionResult CreateExam([FromBody] CreateExamDto examDto)
         {
@@ -200,7 +201,7 @@ namespace ProjectAngularApi.Controllers
         {
             try
             {
-                var exam = examRepo.GetByIdWithDetails(id); 
+                var exam = examRepo.GetByIdWithDetails(id);
                 if (exam == null)
                     return NotFound($"Exam with ID {id} not found.");
 
@@ -248,6 +249,38 @@ namespace ProjectAngularApi.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "An error occurred while searching exams.");
+            }
+        }
+
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            try
+            {
+                var counts = examRepo.ExamCounts();
+                if (counts == 0)
+                    return NotFound("There are no exams!");
+
+                return Ok(counts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while retrieving the exam.");
+            }
+        }
+        [HttpGet("questions")]
+        public IActionResult GetQuestionsCount()
+        {
+            try
+            {
+                var counts = _questionRepo.GetQuestionsCount;
+                if (counts == 0)
+                    return NotFound("There are no questions");
+                return Ok(counts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while retrieving questions.");
             }
         }
     }
