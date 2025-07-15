@@ -20,33 +20,7 @@ interface User {
 export class Header implements OnInit {
   studentNavItems: any[] = [];
   adminNavItems: any[] = [];
-
-  ngOnInit() {
-    this.studentNavItems = [
-      { label: 'Dashboard', route: '/student-dashboard', icon: 'dashboard' },
-      { label: 'Exams', route: '/student/exams', icon: 'quiz' },
-      { label: 'Results', route: '/student/results', icon: 'assessment' },
-      { label: 'Logout', route: '/login', icon: 'logout' }
-    ];
-
-    this.adminNavItems = [
-      { label: 'Dashboard', route: '/admin-dashboard', icon: 'dashboard' },
-      { label: 'Exams', route: '/exam', icon: 'quiz' },
-      { label: 'Results', route: '/student/results', icon: 'assessment' },
-      { label: 'Logout', route: '/login', icon: 'logout' }
-    ];
-  }
-  private router = inject(Router);
-  private platformId = inject(PLATFORM_ID);
-
-  isLoggedIn: Signal<boolean> = computed(() => {
-    if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('exam-token');
-    }
-    return false;
-  });
-
-  user = computed<User | null>(() => {
+user = computed<User | null>(() => {
     if (!this.isLoggedIn()) {
       return null;
     }
@@ -65,6 +39,33 @@ export class Header implements OnInit {
       return null;
     }
   });
+  ngOnInit() {
+    this.studentNavItems = [
+      { label: 'Dashboard', route: '/student-dashboard', icon: 'dashboard' },
+      { label: 'Exams', route: '/student/exams', icon: 'quiz' },
+      { label: 'Results', route: '/student/results', icon: 'assessment' },
+      { label: 'Logout', route: '/login', icon: 'logout' },
+      { label: this.user()?.name, icon: 'Name'}
+    ];
+
+    this.adminNavItems = [
+      { label: 'Dashboard', route: '/admin-dashboard', icon: 'dashboard' },
+      { label: 'Exams', route: '/exam', icon: 'quiz' },
+      { label: 'Results', route: '/student/results', icon: 'assessment' },
+      { label: 'Logout', route: '/login', icon: 'logout' },
+      { label: this.user()?.name, icon: 'Name'}
+    ];
+  }
+  private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
+
+  isLoggedIn: Signal<boolean> = computed(() => {
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem('exam-token');
+    }
+    return false;
+  });
+
 
   getInitials(name: string | undefined | null): string {
     if (!name) return '';
