@@ -11,13 +11,9 @@ export class AuthGuard implements CanActivate {
 canActivate(route: ActivatedRouteSnapshot): boolean {
   const expectedRole = route.data['role'];
   const token = localStorage.getItem('exam-token');
-  console.log(token);
   if (!token) return false;
   const decoded: any = jwtDecode(token);
-  console.log(decoded);
   const roles: string[] = JSON.parse(decoded.roles);
-  console.log(roles);
-
   return roles.includes(expectedRole);
 }
 }

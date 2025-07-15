@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import {jwtDecode} from 'jwt-decode';
+import { Observable } from 'rxjs';
 import { TokenStorageService } from '../../../core/services/token-storage.service';
 import { Router } from '@angular/router';
-
+import { ExamService } from '../../../core/services/exam-service';
+import { Header } from "../../shared/header/header";
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.html',
-  styleUrls: ['./admin-dashboard.css']
+  styleUrls: ['./admin-dashboard.css'],
+  imports: [AsyncPipe, Header],
+  standalone: true
 })
 export class AdminDashboard implements OnInit {
+  private examService = inject(ExamService);
   adminName: string = '';
+  examsCount$!: Observable<number>; // Async pipe (automatically subscribe and unsubscribe to the observable)
+  questionsCount$!: Observable<number>;
 
   constructor(private tokenStorage: TokenStorageService, private router: Router) {}
 
@@ -18,6 +26,8 @@ export class AdminDashboard implements OnInit {
     if (token) {
       const decoded: any = jwtDecode(token);
       this.adminName = decoded?.sub || decoded?.UserName || 'Admin';
+      this.examsCount$ = this.examService.getExamsCount();
+      this.questionsCount$ = this.examService.getQuestionsCount();
     }
   }
 
@@ -25,7 +35,9 @@ export class AdminDashboard implements OnInit {
     this.router.navigate(['/exam']);
   }
 
-  goToCreateExam(): void {
-    this.router.navigate(['/exam/create']);
+  logout(): void {
+    this.tokenStorage.clear();
+    this.router.navigate(['/login']);
   }
+
 }

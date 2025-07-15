@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using ProjectAngularApi.Models.Entities;
 using ProjectAngularApi.Repositories.IRepositories;
 using ProjectAngularApi.Service.DB;
@@ -53,6 +54,10 @@ namespace ProjectAngularApi.Repositories
         public void Update(Exam entity)
         {
             context.Entry(entity).State=Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
+        public int ExamCounts()
+        {
+            return context.Exams.Count();
         }
     }
 }

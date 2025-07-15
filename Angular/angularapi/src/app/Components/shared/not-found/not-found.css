@@ -25,13 +25,15 @@
             width: 90%;
             position: relative;
             z-index: 2;
-            margin: 0 auto; /* Center horizontally */
+            margin: 0 auto;
+            /* Center horizontally */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            position: absolute; /* Center absolutely within parent */
+            position: absolute;
+            /* Center absolutely within parent */
         }
-        
+
 
         .character-container {
             position: relative;
@@ -296,19 +298,25 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(var(--rotate, 0deg));
             }
+
             50% {
                 transform: translateY(-20px) rotate(var(--rotate, 0deg));
             }
         }
 
         @keyframes twinkle {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0.3;
                 transform: scale(1);
             }
+
             50% {
                 opacity: 1;
                 transform: scale(1.2);
@@ -320,12 +328,16 @@
         }
 
         @keyframes wobble {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: rotate(0deg);
             }
+
             25% {
                 transform: rotate(-5deg);
             }
+
             75% {
                 transform: rotate(5deg);
             }
@@ -335,20 +347,20 @@
             .container {
                 padding: 40px 20px;
             }
-            
+
             .title {
                 font-size: 2rem;
             }
-            
+
             .subtitle {
                 font-size: 1rem;
             }
-            
+
             .document {
                 width: 100px;
                 height: 120px;
             }
-            
+
             .retry-button {
                 padding: 12px 30px;
                 font-size: 1rem;

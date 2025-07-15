@@ -342,6 +342,25 @@
 .details-button:active {
   transform: translateY(0);
 }
+.edit-button {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ecce46 0%, #996a06 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+.edit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 159, 43, 0.3);
+}
+
+.edit-button:active {
+  transform: translateY(0);
+}
 
 .delete-button {
   padding: 8px 16px;

@@ -1,21 +1,23 @@
 <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">🎓</div>
-                <span class="navbar-brand fw-bold">EvalEdge</span>
-            </div>
-            <div class="nav-links">
-                <a href="#" class="nav-link active">Dashboard</a>
-                <a href="#" class="nav-link">Exams</a>
-                <a href="#" class="nav-link">Results</a>
-                <a href="#" class="nav-link">Profile</a>
-            </div>
+    <div class="nav-container">
+        <a class="logo" routerLink="/">
+            <div class="logo-icon">🎓</div>
+            <span class="fw-bold">EvalEdge</span>
+        </a>
+
+        @if (isLoggedIn()) {
             <div class="user-section">
                 <div class="user-info">
-                    <div class="user-name">John Doe</div>
-                    <div class="user-role">Student</div>
+                    <div class="user-name">{{ user()?.name }}</div>
+                    <div class="user-role">{{ user()?.role }}</div>
                 </div>
-                <div class="user-avatar">JD</div>
+                <button class="btn btn-sm btn-outline-primary ms-2" (click)="logout()">Logout</button>
             </div>
-        </div>
-    </nav>
+        } @else {
+            <div class="nav-links ms-auto">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+                <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+            </div>
+        }
+    </div>
+</nav>
