@@ -362,6 +362,64 @@
   border-top: 1px solid #ecf0f1;
 }
 
+/* Fix for Bootstrap Icons - Custom X icons */
+.bi-trash::before {
+  content: "🗑️";
+  font-style: normal;
+  font-size: 14px;
+}
+
+.bi-x::before {
+  content: "✕";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Alternative approach - if you prefer simple text X */
+.bi-trash {
+  font-style: normal;
+  font-family: inherit;
+}
+
+.bi-trash::after {
+  content: "✕";
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.bi-x {
+  font-style: normal;
+  font-family: inherit;
+}
+
+.bi-x::after {
+  content: "";
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Better styling for delete buttons */
+.btn-outline-danger {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-outline-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .exam-container {
