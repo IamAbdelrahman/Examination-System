@@ -1,27 +1,29 @@
-
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NotFound } from '../app/Components/shared/not-found/not-found';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Header } from '../app/Components/shared/header/header';
-import { AllExamsComponent } from "./Components/admin/Exam/all-exams/all-exams";
-import { CreateExam } from "./Components/admin/Exam/create-exam/create-exam";
-import { ExamTaking } from "./Components/student/exam-taking/exam-taking";
-import { UpdateExamComponent } from "./Components/admin/Exam/update-exam/update-exam";
-
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [RouterModule, Header, ExamTaking, UpdateExamComponent], 
+  imports: [RouterModule, Header],
   standalone: true
 })
-export class App {
-  protected title = 'angularapi';
-    refreshOnceAfter(delay:number) {
-    setTimeout(function() {
-        window.location.reload();
-    }, delay);
-}
-}
+export class App implements OnInit {
 
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const hasReloaded = sessionStorage.getItem('hasReloaded');
+        if (!hasReloaded) {
+          sessionStorage.setItem('hasReloaded', 'true');
+          location.reload();
+        } else {
+          sessionStorage.removeItem('hasReloaded');
+        }
+      }
+    });
+  }
+}

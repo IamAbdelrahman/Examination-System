@@ -12,7 +12,7 @@ import { Footer } from "../../shared/footer/footer";
 
 @Component({
   selector: 'app-student-dashboard',
-  imports: [Header, RouterModule, Footer],
+  imports: [ RouterModule, Footer],
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css',
   standalone: true

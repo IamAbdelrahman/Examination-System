@@ -10,7 +10,7 @@ import { Header } from "../../shared/header/header";
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.css'],
-  imports: [AsyncPipe, Header],
+  imports: [AsyncPipe],
   standalone: true
 })
 export class AdminDashboard implements OnInit {
