@@ -8,8 +8,10 @@ using ProjectAngularApi.Repositories.IRepositories;
 
 namespace ProjectAngularApi.Controllers
 {
-
+    
     [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
+
 
     [Route("api/[controller]")]
     [ApiController]
@@ -58,7 +60,7 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
+        //[Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public IActionResult CreateExam([FromBody] CreateExamDto examDto)
         {
@@ -124,7 +126,7 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
+        //[Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
         [HttpPut("{id}")]
         public IActionResult UpdateExam(int id, [FromBody] CreateExamDto examDto)
         {
@@ -175,7 +177,7 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
+        //[Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
         public IActionResult DeleteExam(int id)
         {
@@ -231,7 +233,7 @@ namespace ProjectAngularApi.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("search")]
         public IActionResult SearchExams([FromQuery] string title)
         {
