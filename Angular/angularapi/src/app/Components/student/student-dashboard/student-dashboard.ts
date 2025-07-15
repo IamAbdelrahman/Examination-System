@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { ExamService } from '../../../core/services/exam-service';
 import { Header } from "../../shared/header/header";
 import { RouterModule } from '@angular/router';
+import { Footer } from "../../shared/footer/footer";
 
 @Component({
   selector: 'app-student-dashboard',
-  imports: [Header,RouterModule ],
+  imports: [Header, RouterModule, Footer],
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.css',
   standalone: true

@@ -27,8 +27,8 @@ export class LoginComponent {
       next: (res) => {
         this.tokenStorage.saveToken(res.token);
         const decoded: any = jwtDecode(res.token);
-        const roles: string[] = JSON.parse(decoded.roles);
-        if (roles.includes('Admin')) this.router.navigate(['/admin-dashboard']);
+        const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        if (role === 'Admin') this.router.navigate(['/admin-dashboard']);
         else this.router.navigate(['/student-dashboard']);
       },
       error: (err) => {

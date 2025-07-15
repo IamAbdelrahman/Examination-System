@@ -113,7 +113,8 @@ namespace ProjectAngularApi.Service
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
-            var rolesArrayClaim = new Claim("roles", JsonSerializer.Serialize(roles));
+            //var rolesArrayClaim = new Claim("roles", JsonSerializer.Serialize(roles));
+            var roleClaims = roles.Select(role => new Claim(ClaimTypes.Role, role));
 
             var claims = new[]
             {
@@ -121,10 +122,9 @@ namespace ProjectAngularApi.Service
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("Uid", user.Id),
-                rolesArrayClaim
             }
-            .Union(userClaims);
-
+            .Union(userClaims)
+            .Union(roleClaims);
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SigningKey));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 

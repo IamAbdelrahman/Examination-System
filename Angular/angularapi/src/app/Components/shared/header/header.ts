@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, PLATFORM_ID, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
-// Define a simple user model. In a real app, this would likely be in its own file.
 interface User {
   name: string;
   role: string;
-  // You can add other properties from the token here
   [key: string]: any;
 }
 
@@ -19,13 +17,27 @@ interface User {
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class Header {
+export class Header implements OnInit {
+  studentNavItems: any[] = [];
+  adminNavItems: any[] = [];
+
+  ngOnInit() {
+    this.studentNavItems = [
+      { label: 'Dashboard', route: '/student-dashboard', icon: 'dashboard' },
+      { label: 'Exams', route: '/student/exams', icon: 'quiz' },
+      { label: 'Results', route: '/student/results', icon: 'assessment' },
+      { label: 'Logout', route: '/login', icon: 'logout' }
+    ];
+
+    this.adminNavItems = [
+      { label: 'Dashboard', route: '/admin-dashboard', icon: 'dashboard' },
+      { label: 'Exams', route: '/exam', icon: 'quiz' },
+      { label: 'Results', route: '/student/results', icon: 'assessment' },
+      { label: 'Logout', route: '/login', icon: 'logout' }
+    ];
+  }
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
-
-  // In a real-world application, this logic would be encapsulated in an AuthService
-  // and the component would simply inject that service.
-  // This implementation uses localStorage and jwt-decode for a self-contained example.
 
   isLoggedIn: Signal<boolean> = computed(() => {
     if (isPlatformBrowser(this.platformId)) {
@@ -41,14 +53,11 @@ export class Header {
     try {
       const token = localStorage.getItem('exam-token');
       if (!token) return null;
-
       const decodedToken: any = jwtDecode(token);
       console.log(decodedToken.sub);
-      const roles: string[] = JSON.parse(decodedToken.roles);
-      console.log(roles[0]);
       return {
         name: decodedToken.sub,
-        role: roles[0]
+        role: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
       };
     } catch (error) {
       console.error("Failed to decode JWT token:", error);
@@ -68,4 +77,7 @@ export class Header {
     }
     this.router.navigate(['/login']);
   }
+
 }
+
+
