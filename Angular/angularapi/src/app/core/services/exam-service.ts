@@ -39,8 +39,20 @@ export class ExamService {
     );
   }
 
+  
   deleteExam(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getExamsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getQuestionsCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/questions`).pipe(
       catchError(this.handleError)
     );
   }

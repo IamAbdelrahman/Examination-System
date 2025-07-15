@@ -21,8 +21,6 @@ interface Exam {
 export class AllExamsComponent implements OnInit {
   private examService = inject(ExamService);
   private router = inject(Router);
-
-
   exams = signal<Exam[]>([]);
   currentPage = signal(1);
   pageSize = 10;
