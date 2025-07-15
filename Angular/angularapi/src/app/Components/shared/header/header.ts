@@ -44,15 +44,12 @@ user = computed<User | null>(() => {
       { label: 'Dashboard', route: '/student-dashboard', icon: 'dashboard' },
       { label: 'Exams', route: '/student/exams', icon: 'quiz' },
       { label: 'Results', route: '/student/results', icon: 'assessment' },
-      { label: 'Logout', route: '/login', icon: 'logout' },
       { label: this.user()?.name, icon: 'Name'}
     ];
 
     this.adminNavItems = [
       { label: 'Dashboard', route: '/admin-dashboard', icon: 'dashboard' },
       { label: 'Exams', route: '/exam', icon: 'quiz' },
-      { label: 'Results', route: '/student/results', icon: 'assessment' },
-      { label: 'Logout', route: '/login', icon: 'logout' },
       { label: this.user()?.name, icon: 'Name'}
     ];
   }
