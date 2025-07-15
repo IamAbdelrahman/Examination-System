@@ -1,22 +1,29 @@
-<div class="form-container">
-  <h2 class="form-title">Update Exam</h2>
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+  <!-- <h2>Update Exam</h2>
 
-  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <label>Title</label>
+  <input formControlName="title" class="form-input" />
 
-    <div class="form-group">
-      <label class="form-label">Title</label>
-      <input formControlName="title" class="form-input" />
+  <label>Description</label>
+  <textarea formControlName="description" class="form-input"></textarea> -->
+
+  <!-- Questions -->
+  <div formArrayName="questions">
+    <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-block">
+      <label>Question {{ i + 1 }}</label>
+      <input formControlName="text" placeholder="Enter question text" class="form-input" />
+
+      <!-- Options -->
+      <div formArrayName="options">
+        <div *ngFor="let option of getOptions(i).controls; let j = index" [formGroupName]="j" class="option-item">
+          <input formControlName="text" placeholder="Option text" class="form-input" />
+          <label>
+            <input type="radio" [formControlName]="'isCorrect'" [value]="true" /> Correct
+          </label>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label class="form-label">Description</label>
-      <textarea formControlName="description" class="form-input" rows="4"></textarea>
-    </div>
-
-    <button class="form-button" type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Updating...' : 'Update Exam' }}
-    </button>
-  </form>
-</div>
+  <button type="submit">Update Exam</button>
+</form>

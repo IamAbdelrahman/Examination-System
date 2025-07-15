@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
+<!-- <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
     <div class="nav-container">
         <a class="logo" routerLink="/">
             <div class="logo-icon">🎓</div>
@@ -7,10 +7,7 @@
 
         @if (isLoggedIn()) {
             <div class="user-section">
-                <div class="user-info">
-                    <div class="user-name">{{ user()?.name }}</div>
-                    <div class="user-role">{{ user()?.role }}</div>
-                </div>
+
                 <button class="btn btn-sm btn-outline-primary ms-2" (click)="logout()">Logout</button>
             </div>
         } @else {
@@ -20,4 +17,44 @@
             </div>
         }
     </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">EvalEdge</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        @if(isLoggedIn())
+        {
+        @if(user()?.role == 'Admin')
+        {
+        <li class="nav-item" *ngFor="let item of adminNavItems">
+          <div class="user-info">
+            <div class="user-name">{{ user()?.name }}</div>
+            <div class="user-role">{{ user()?.role }}</div>
+          </div>
+          <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
+            <i [class]="item.icon" *ngIf="item.icon"></i>
+            {{ item.label }}
+          </a>
+        </li>
+        }
+        @else
+        {
+        <li class="nav-item" *ngFor="let item of studentNavItems">
+          <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">
+            <i [class]="item.icon" *ngIf="item.icon"></i>
+            {{ item.label }}
+          </a>
+        </li>
+        }
+        }
+      </ul>
+    </div>
+  </div>
 </nav>

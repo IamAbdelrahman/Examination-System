@@ -13,8 +13,8 @@ canActivate(route: ActivatedRouteSnapshot): boolean {
   const token = localStorage.getItem('exam-token');
   if (!token) return false;
   const decoded: any = jwtDecode(token);
-  const roles: string[] = JSON.parse(decoded.roles);
-  return roles.includes(expectedRole);
+  const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  return (role === expectedRole);
 }
 }
 

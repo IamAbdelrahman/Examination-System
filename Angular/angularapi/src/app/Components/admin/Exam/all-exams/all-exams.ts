@@ -3,7 +3,7 @@ import { ExamService } from '../../../../core/services/exam-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { RouterModule } from '@angular/router';
 
 interface Exam {
   id: number;
@@ -14,7 +14,7 @@ interface Exam {
 @Component({
   selector: 'app-all-exams',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './all-exams.html',
   styleUrl: './all-exams.css'
 })

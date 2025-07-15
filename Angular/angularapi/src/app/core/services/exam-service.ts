@@ -53,6 +53,7 @@ export class ExamService {
   updateExam(id: number, exam: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, exam);
   }
+  
   getExamsCount(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/count`).pipe(
       catchError(this.handleError)
