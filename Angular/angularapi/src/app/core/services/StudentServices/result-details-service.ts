@@ -17,7 +17,7 @@ export interface StudentResultDetailsDto {
 })
 export class ResultDetailsService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:44301/api/StudentExam';
+  private apiUrl = 'http://examination-system.runasp.net/api/StudentExam';
 
   getResultDetails(resultId: number): Observable<StudentResultDetailsDto> {
     const token = this.getToken();

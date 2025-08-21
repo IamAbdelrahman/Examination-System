@@ -61,7 +61,7 @@ export interface ExamStatusDto {
 })
 export class ExamTakingService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:44301/api/StudentExam';
+  private apiUrl = 'http://examination-system.runasp.net/api/StudentExam';
 
   // Check if exam has been taken
   checkExamTaken(examId: number): Observable<ExamStatusDto> {
