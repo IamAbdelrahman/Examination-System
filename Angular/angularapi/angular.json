@@ -12,6 +12,7 @@
       "architect": {
         "build": {
           "builder": "@angular/build:application",
+          "outputdir":"dist/angularapi/browser",
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
