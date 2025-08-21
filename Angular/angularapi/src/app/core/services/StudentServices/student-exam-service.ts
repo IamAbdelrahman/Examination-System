@@ -13,7 +13,7 @@ export interface StudentExamListDto {
 })
 export class StudentExamService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:44301/api/StudentExam';
+  private apiUrl = 'http://examination-system.runasp.net/api/StudentExam';
 
   getAvailableExams(page: number = 1, pageSize: number = 10, searchTerm: string = ''): Observable<StudentExamListDto[]> {
     const token = localStorage.getItem('exam-token') || localStorage.getItem('token');

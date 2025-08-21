@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService, private router: Router) { }
 
   login() {
-    this.http.post<any>('https://localhost:44301/api/Auth/login', {
+    this.http.post<any>('http://examination-system.runasp.net/login', {
       email: this.email,
       password: this.password
     }).subscribe({

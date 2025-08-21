@@ -13,7 +13,7 @@ export interface Exam {
 })
 export class ExamService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:44301/api/exam'; 
+  private apiUrl = 'http://examination-system.runasp.net/api/exam'; 
 
   getAllExams(page: number = 1, pageSize: number = 10): Observable<Exam[]> {
     const params = new HttpParams()

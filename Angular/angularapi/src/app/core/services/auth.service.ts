@@ -6,7 +6,7 @@ import {jwtDecode} from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'https://localhost:44301/api/Auth';
+  private baseUrl = 'http://examination-system.runasp.net';
   private currentUserSubject = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient, private router: Router) {
