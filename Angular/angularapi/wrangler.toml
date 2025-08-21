@@ -1,0 +1,7 @@
+name = "examination-app"
+compatibility_date = "2025-08-21"
+site = { bucket = "./dist/angularapi/browser" }
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
